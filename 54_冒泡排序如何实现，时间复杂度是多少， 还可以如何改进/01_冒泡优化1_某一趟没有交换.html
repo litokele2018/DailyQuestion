@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01_冒泡优化1_某一趟没有交换</title>
+</head>
+
+<body>
+  <script src="./utils.js"></script>
+  <script>
+    let arr = randomArray(5000)
+    function bubbleSort(arr) {
+      let length = arr.length
+      let isSwap = false // 默认没有交换
+      while (length > 1) {
+        for (let i = 0; i < length - 1; i++) {
+          if (arr[i] > arr[i + 1]) {
+            swap(i, i + 1, arr)
+            isSwap = true
+          }
+        }
+        if (!isSwap) { // 加上这个判断 average:  82 ms  没加 20294ms
+          isSwap = false
+          break
+        }
+        length --
+      }
+      return arr
+    }
+    console.log(countTime(bubbleSort, arr))
+    console.log(bubbleSort(arr))
+  </script>
+</body>
+</html>

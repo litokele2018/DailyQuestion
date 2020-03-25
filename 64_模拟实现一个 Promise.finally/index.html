@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>模拟实现一个 Promise.finally</title>
+</head>
+<body>
+  <a href="https://es6.ruanyifeng.com/#docs/promise#Promise-prototype-finally">Promise.prototype.finally</a>
+  <script>
+    // Promise.finally 方法是ES9 ES2018 推出的
+    // 不管Promise中是否是resovle 状态都会执行 callback 这里 callback可以是promise
+    // 返回的结果为 Promise <pending> 状态  -> Promise.then
+
+    console.log(Promise.resolve(1).then(() => {})) //  Promise <pending>  [[PromiseStatus]]: "pending" , [[PromiseValue]]: undefined
+
+    Promise.prototype.finally = function (callback) {
+      let P = this.constructor;
+      return this.then(
+        value  => P.resolve(callback()).then(() => {
+          console.log(value) // 1
+          return value
+        }),
+        reason => P.resolve(callback()).then(() => { throw reason })
+      );
+    };
+
+    console.log(Promise.reject('err').finally(() => { // Promise <pending>  [[PromiseStatus]]: "rejected", [[PromiseValue]]: "err"
+      setTimeout(() => {
+        console.log(2)
+      })
+    }))
+    console.log(Promise.reject(3).then(err => {}))
+  </script>
+</body>
+</html>

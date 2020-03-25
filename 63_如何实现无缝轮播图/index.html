@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>无缝轮播图</title>
+  <style>
+    html,body{
+      overflow: hidden;
+    }
+    #app{
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      width: 500px;
+      height: 300px;
+      /* overflow: hidden; */
+    }
+    #wrap{
+      display: flex;
+      white-space: nowrap;
+      margin-left: -500px;
+      transition: 1s;
+    }
+    #wrap>img{
+      flex: 1;
+      height: 100%;
+      width: 500px;
+    }
+  </style>
+</head>
+<body>
+    <div id="app">
+      <div id="wrap"></div>
+    </div>
+  <script>
+    /* 
+      无限轮播基本插件都可以做到,不过要使用原生代码实现无缝滚动的话我可以提点思路,
+      因为轮播图基本都在ul盒子里面的li元素,
+      首先获取第一个li元素和最后一个li元素,
+      克隆第一个li元素,和最后一个li元素,
+      分别插入到lastli的后面和firstli的前面,
+      然后监听滚动事件,如果滑动距离超过x或-x,让其实现跳转下一张图或者跳转上一张,(此处最好设置滑动距离),
+      然后在滑动最后一张实现最后一张和克隆第一张的无缝转换,当到克隆的第一张的时候停下的时候,,让其切入真的第一张,则实现无线滑动,向前滑动同理
+     */
+    // 无缝轮播图的实现
+    let imgList = ['./img/1.jpg', './img/2.jpg', './img/3.jpg', './img/4.jpg', './img/5.jpg']
+    // 一上来就克隆 第一个 和 最后一张图片
+    let img0 = imgList[0]
+    let imgLast = imgList[imgList.length - 1]
+
+    imgList.unshift(imgLast)
+    imgList.push(img0)
+
+    let app = document.getElementById('app')
+    let wrap = document.getElementById('wrap')
+
+    for (let i = 0; i < imgList.length; i++) {
+      let img = new Image()
+      img.src = imgList[i]
+      wrap.appendChild(img)
+    }
+    let x = 0
+    setInterval(() => {
+      x -= 500 
+      if (Math.abs(x) === 6 * 500) {
+        x = 0
+        wrap.style.transition = 0 + 's'
+        wrap.style.transform = `translate(${x}px, 0)` // 瞬间回到第一张
+        console.log(1)
+        x -= 500
+        
+        setTimeout(() => { //不加这个 后面的会覆盖前面的？？？ 然后执行以下 
+          wrap.style.transition = 1 + 's'
+          wrap.style.transform = `translate(${x}px, 0)`
+        })
+      } else {
+        wrap.style.transition = 1 + 's'
+        wrap.style.transform = `translate(${x}px, 0)`
+        console.log(x)
+      }
+      
+
+     
+    }, 2000)
+
+  </script>
+</body>
+</html>

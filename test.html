@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let name = "{{ name }}"
+    let reg = /\{\{\s*(.*?)\s*\}\}/
+    reg.test(name) // true
+    console.log(reg.exec(name))   // ["{{ name }}", "name", index: 0, input: "{{ name }}", groups: undefined]
+    // console.log(Array.prototype[Symbol.iterator])
+  </script>
+</body>
+
+</html>

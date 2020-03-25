@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 下面代码输出什么
+    var a = 10;
+    (function () {
+      console.log(a) // undefined 但未赋值
+      a = 5 // 给内部的a赋值
+      console.log(window.a) // 10
+      var a = 20; // 这里声明变量提升 
+      console.log(a) //20
+    })()
+  </script>
+</body>
+
+</html>

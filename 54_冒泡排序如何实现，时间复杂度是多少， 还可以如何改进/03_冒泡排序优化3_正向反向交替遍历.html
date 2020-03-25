@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>冒泡优化3 正向反向遍历</title>
+</head>
+<body>
+  <img src="https://img-blog.csdn.net/20180627192350535?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hhbnNpb256/
+  font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="">
+  <script src="./utils.js"></script>
+  <script>
+    // 先正向遍历一次 求得最大值 然后 反向遍历 求得最小值
+
+    let arr = randomArray(5000)
+
+    function bubbleSort(arr) {
+      let start = 0
+      let end = arr.length
+      let pos 
+      let isSwap = false
+      
+      while (start < end) {
+        isSwap = false
+        // 正向 求最大值
+        for (let i = start; i < end - 1; i ++) {
+          if (arr[i] > arr[i + 1]) {
+            swap(i, i + 1, arr)
+            isSwap = true
+            pos = i + 1
+          }
+        }
+        if (pos === start + 1) break // 如果 只在第一次交换 就 跳出循环
+        end = pos
+        if (!isSwap) {
+          break
+        }
+        
+        isSwap = false
+        // 反向 求最小值
+        for (let j = end - 1; j > start; j --) {
+          if (arr[j] < arr[j - 1]) {
+            swap(j, j - 1, arr)
+            isSwap = true
+            pos = j - 1
+          }
+        }
+        if (pos === end - 2) break // 如果 只在第一次交换 就 跳出循环
+        start = pos + 1
+        if (!isSwap) {
+          break
+        }
+      }
+      return arr
+    }
+    console.log(countTime(bubbleSort, arr))
+    console.log(bubbleSort(arr))
+  </script>
+</body>
+</html>

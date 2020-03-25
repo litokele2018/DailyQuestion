@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全局作用域中，用 const 和 let 声明的变量不在 window 上，那到底在哪里？如何去获取？。</title>
+</head>
+<body>
+  <script>
+    // 全局作用域中，用 const 和 let 声明的变量不在 window 上，那到底在哪里？如何去获取？。
+    const a = 11
+    let b = 22
+    var c = 33
+    console.log(window.a) // undefined 
+    // console.log(window)
+    // console.dir(window)
+    // 放在script 里面 
+
+    // debugger
+  </script>
+</body>
+</html>

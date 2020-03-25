@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>使用 sort() 对数组 [3, 15, 8, 29, 102, 22] 进行排序，输出结果</title>
+</head>
+<body>
+  <script>
+    var a = [3, 15, 8, 29, 102, 22]  // 数组个数小于等于10 采用插入排序  大于10 采用快速排序
+    a.sort() // 102 15 22 29 3 8
+    console.log(a)
+    a.sort((a, b) => {
+      console.log('a:' + a, 'b:' + b)
+      return a - b 
+    }) 
+    console.log(a)
+  </script>
+</body>
+</html>
