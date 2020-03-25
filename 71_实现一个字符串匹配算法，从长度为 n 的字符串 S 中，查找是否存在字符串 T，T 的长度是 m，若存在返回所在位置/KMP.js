@@ -3,7 +3,7 @@
 function KMP(pattern, text) {
   let n = pattern.length
   let m = text.length
-  // 计算pattern 的prefix 数组
+  // 计算pattern 的 prefix 数组
   let arr = new Array(n).fill(0)
   let i = 0
   let j = 1
