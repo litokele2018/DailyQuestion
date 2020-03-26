@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>介绍下 Promise.all 使用、原理实现及错误处理</title>
+</head>
+<body>
+  <script>
+    let promise1 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('then1')
+        console.log(1)
+      }, 1000)
+    })
+
+    let promise2 = new Promise(resolve => {
+      setTimeout(() => {
+        resolve('then2')
+        console.log(2)
+      }, 2000)
+    })
+
+    let promise3 = new Promise(resolve => {
+      setTimeout(() => {
+        resolve('then3')
+        console.log(3)
+      }, 3000)
+    })
+
+    Promise.all([promise1, promise2, promise3]).then(res => {
+      console.log(res)  //  ["then1", "then2", "then3"]
+    }).catch(err => {
+      console.log(err)
+    })
+
+  </script>
+</body>
+</html>

@@ -9,11 +9,15 @@
 
 <body>
   <script>
-    let name = "{{ name }}"
-    let reg = /\{\{\s*(.*?)\s*\}\}/
-    reg.test(name) // true
-    console.log(reg.exec(name))   // ["{{ name }}", "name", index: 0, input: "{{ name }}", groups: undefined]
-    // console.log(Array.prototype[Symbol.iterator])
+    let i = 0;
+    (
+      function (i) {
+        console.log(i)
+      },
+      function (i) {
+        console.log(i + '1')
+      }
+    )(i);
   </script>
 </body>
 
