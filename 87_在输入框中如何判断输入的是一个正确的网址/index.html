@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL</title>
+</head>
+
+<body>
+  <script>
+    let url = 'httpx://www.baidu.com';
+    // (https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]
+    function searchUrl(url) {
+      try {
+        console.log(new URL(url))
+        if (new URL(url) && (new URL(url).protocol === "http:" || new URL(url).protocol === "https:")) {
+            return true
+          } else {
+            return false
+          }
+      } catch (err) {
+        console.log("不是一个正确的网址");
+      }
+    };
+    console.log(searchUrl(url))
+  </script>
+</body>
+
+</html>
