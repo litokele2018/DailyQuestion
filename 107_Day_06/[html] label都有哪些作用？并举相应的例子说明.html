@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[html] label都有哪些作用？并举相应的例子说明</title>
+  <style>
+  
+  </style>
+</head>
+
+<body>
+  <label for="inp">
+    <!-- alt + n -->
+    <input id="inp" type="checkbox" accesskey="N"> 
+    <span>xxxx</span>
+  </label>
+  <script>
+    document.onselectstart = function () {
+      return false
+    }
+    /* 
+    作用
+    相关联
+    Label标签有两个属性，一个是for，一个是 accesskey。
+      for功能：表示这个Lable是为哪个控件服务的，Label标签要绑定了for指定HTML元素的ID或name属性，
+      你点击这个标签的时候，所绑定的元素将获取焦点 ，
+      点击label所包裹内容，自动指向for指定的id或name
+
+    accesskey则定义了访问这个控件的热键( 所设置的快捷键不能与浏览器的快捷键冲突，否则将优先激活浏览器的快捷键)
+
+    https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/label
+    */
+  </script>
+</body>
+
+</html>
