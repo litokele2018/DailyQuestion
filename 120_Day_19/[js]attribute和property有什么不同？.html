@@ -1,0 +1,16 @@
+[js] "attribute"和"property"有什么不同？
+property
+是DOM中的属性，是JavaScript里的对象
+可以读取标签自带属性，包括没有写出来的
+不能读取attribute设置的属性
+获取方式：读：element.property;            如：p.className;
+设置方式：element.property = 'xxx';        如：p.className = 'xiao';
+
+是元素（对象）的属性
+
+attribute
+是HTML标签的属性,即直接在html标签添加的都是attribute属性
+不能读取property设置的属性
+读取方式：element.getAttribute('属性名','属性值');  如：a.getAttribute('href');
+设置方式：element.setAttribute('属性名','属性值');  如：a.getAttribute('href','xiaowan.jpg');
+直接在html标签上添加的和使用setAttribute添加的情况一致
