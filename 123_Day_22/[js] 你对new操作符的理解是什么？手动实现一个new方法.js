@@ -1,9 +1,7 @@
 // [js] 你对new操作符的理解是什么？手动实现一个new方法
-class Person {
-  constructor(name, age) {
-    this.name = name
-    this.age = age
-  }
+function Person(name, age) {
+  this.name = name
+  this.age = age
 }
 
 function myNew(xx, ...args) {
