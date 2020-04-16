@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
+
 <body>
-    <blockquote cite="https://www.huxley.net/bnw/four.html">
-        <p>Words can be like X-rays, if you use them properly—they’ll go through anything. You read and you’re pierced.</p>
-        <footer>—Aldous Huxley, <cite>Brave New World</cite></footer>
-    </blockquote>
+  <script>
+    function Person(name, age) {
+      this.name = name
+      this.age = age
+    }
+
+    function myNew(xx, ...args) {
+      let result = xx(...args)
+      if (typeof result === 'object') {
+        return result
+      }
+      let obj = {}
+      obj.__proto__ = xx.prototype
+      xx.call(obj, ...args)
+      return obj
+    }
+    let x = myNew(Person, 'litokele', 18);
+  </script>
 </body>
+
 </html>
