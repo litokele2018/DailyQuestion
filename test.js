@@ -1,1 +1,14 @@
-console.log(Object.prototype.toString.call(Symbol('1')))
+// 手写promise
+
+class MyPromise {
+  constructor() {
+
+  }
+  then() {
+
+  }
+}
+
+let p = new MyPromise((resolve, reject) => {
+  resolve(1)
+})

@@ -9,22 +9,24 @@
 
 <body>
   <script>
-    function Person(name, age) {
-      this.name = name
-      this.age = age
+    Function.prototype.softBind = function(obj) {
+      const fn = this
+      let bound = function(...args) {
+        fn.call((!this || this === (window || global)) ? obj : this, ...args)
+      }
+      bound.prototype = Object.create(fn.prototype)
+      return bound
     }
 
-    function myNew(xx, ...args) {
-      let result = xx(...args)
-      if (typeof result === 'object') {
-        return result
-      }
-      let obj = {}
-      obj.__proto__ = xx.prototype
-      xx.call(obj, ...args)
-      return obj
+    function foo() {
+      console.log('hello', this)
     }
-    let x = myNew(Person, 'litokele', 18);
+    let obj = {
+      name: 'litokele'
+    }
+    let x = foo.softBind(obj)
+    console.log(x.prototype)
+    x()
   </script>
 </body>
 
