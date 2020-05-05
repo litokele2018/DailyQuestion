@@ -1,14 +1,3 @@
-// 手写promise
-
-class MyPromise {
-  constructor() {
-
-  }
-  then() {
-
-  }
-}
-
-let p = new MyPromise((resolve, reject) => {
-  resolve(1)
-})
+(10).toFixed(10)
+10.toFixed(10)
+console.log((10).toFixed(10))

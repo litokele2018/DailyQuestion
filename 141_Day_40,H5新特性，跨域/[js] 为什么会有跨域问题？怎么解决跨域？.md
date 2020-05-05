@@ -1,4 +1,5 @@
 https://segmentfault.com/a/1190000011145364
+
 1、 通过jsonp跨域
 2、 document.domain + iframe跨域
 3、 location.hash + iframe
