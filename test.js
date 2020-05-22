@@ -1,3 +1,5 @@
-(10).toFixed(10)
-10.toFixed(10)
-console.log((10).toFixed(10))
+let str = '123'
+
+str += -1
+
+console.log(str)
