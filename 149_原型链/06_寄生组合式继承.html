@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>06_寄生组合式继承_最有效的方式</title>
+</head>
+<body>
+  <script>
+    function SuperType(name) {
+      this.name = name
+    }
+
+    function SubType(name) {
+      SuperType.call(this, name)
+    }
+
+    SubType.prototype = new SuperType()
+    SubType.prototype.constructor = SubType
+    SubType.prototype.sayHello = function () {
+      console.log('hello')
+    }
+
+    let o = new SubType('kele')
+    console.log(o)
+  </script>
+</body>
+</html>

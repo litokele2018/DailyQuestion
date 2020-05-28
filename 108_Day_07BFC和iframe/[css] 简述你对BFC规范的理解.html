@@ -6,21 +6,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>[css] 简述你对BFC规范的理解</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
     #wrapper {
       overflow: hidden;
     }
 
     #div1 {
+      float: left;
+
       width: 100px;
       height: 100px;
+      margin-bottom: 10px;
       background-color: pink;
     }
 
     #div2 {
       width: 100px;
       height: 100px;
+      margin-top: 10px;
       background-color: green;
-      margin: 10px;
     }
 
     #div3 {
@@ -33,10 +40,12 @@
 </head>
 
 <body>
-  <div id="div3"></div>
+  <div id="div3">div3</div>
+
   <div id="wrapper">
-    <div id="div1"></div>
-    <div id="div2"></div>
+    ssss
+    <div id="div1">div1</div>
+    <div id="div2">div22222222</div>
   </div>
   <script>
     /* 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page1</title>
+</head>
+
+<body>
+  <script>
+    // localStorage
+    window.localStorage.setItem('name', 'litokele')
+    window.localStorage.setItem('haha', 'ae')
+
+    // window.open
+    window.onload = () => {
+      const Page2 = window.open('page2.html')
+      console.log(Page2)
+      Page2.onload = () => {
+        Page2.postMessage('xxx', location.origin)
+      }
+    }
+  </script>
+</body>
+
+</html>

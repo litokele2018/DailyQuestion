@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>原型链继承</title>
+</head>
+<body>
+  <script>
+    function SuperType() {
+      this.property = true
+    } 
+    SuperType.prototype.getSuperValue = function () {
+      return this.property
+    }
+
+    function SubType() {
+      this.subProperty = false
+    }
+
+    SubType.prototype = new SuperType()
+    
+    SubType.prototype.getSubValue = function () {
+      return this.subProperty
+    }
+
+    let o = new SubType()
+    console.log(o)
+  </script>
+</body>
+</html>
