@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>伪元素</title>
+  <style>
+    .selection::selection {
+      background-color: pink;
+    }
+    .placeholder::placeholder {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <p class="selection">jdoajldjasljdlasj</p>
+  </div>
+  <input type="text" class="placeholder" placeholder="red ??">
+  <script>
+    /*
+    ::after
+    ::before
+    ::first-line
+    ::first-letter
+    ::selection
+    ::placeholder
+    */
+  </script>
+</body>
+
+</html>

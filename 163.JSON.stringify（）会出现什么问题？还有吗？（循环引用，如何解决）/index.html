@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON.stringify（）会出现什么问题？还有吗？（循环引用，如何解决）</title>
+</head>
+
+<body>
+  <script>
+    // JSON.stringify（）会出现什么问题？还有吗？（循环引用，如何解决）
+    // JSON.stringify 中第二个参数可以传入一个函数接受 （key， value）
+    JSON.stringify(circularReference, getCircularReplacer());
+    // {"otherData":123}
+
+    const getCircularReplacer = () => {
+      const seen = new WeakSet();
+      return (key, value) => {
+        if (typeof value === "object" && value !== null) {
+          if (seen.has(value)) {
+            return;
+          }
+          seen.add(value);
+        }
+        return value;
+      };
+    }
+  </script>
+</body>
+
+</html>

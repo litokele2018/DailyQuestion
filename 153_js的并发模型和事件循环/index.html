@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>153_js的并发模型和事件循环</title>
+</head>
+
+<body>
+  <script>
+    // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/EventLoop
+    // 关于setTimeout的不准确
+    // 如果消息队列中 还存在消息未执行完成， setTimeout不会立即执行
+    let start = Date.now()
+    console.log(start)
+    setTimeout(() => {
+      console.log(Date.now() - start) // 2000
+    }, 1000)
+
+    while (true) {
+      if (Date.now() - start >= 2000) {
+        console.log("Good, looped for 2 seconds");
+        break;
+      }
+    }
+    // 由于主线程的循环未结束， 不会去执行宏任务队列的setTimeout 
+    // 零延迟并不意味着回调会立即执行。以 0 为第二参数调用 setTimeout 并不表示在 0 毫秒后就立即调用回调函数。
+    // 其等待的时间取决于队列里待处理的消息数量
+  </script>
+</body>
+
+</html>

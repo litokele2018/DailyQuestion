@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // ajax的工作原理，以及原生js如何实现
+    const xml = new XMLHttpRequest()
+    xml.open('GET', 'http://iwenwiki.com/api/blueberrypai/getIndexInteresting.php')
+    xml.send(null)
+    xml.onreadystatechange = function() {
+      if (xml.readyState === 4) {
+        if (xml.status === 200) {
+          console.log(JSON.parse(xml.responseText))
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
