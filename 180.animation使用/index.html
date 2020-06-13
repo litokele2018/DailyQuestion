@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>animation</title>
+  <style>
+    div {
+      /* forwards 保留最后一帧 */
+      /* 时间必须带单位 */
+      animation: ani 2s ease 0s forwards;
+    }
+
+    @keyframes ani {
+      10% {
+        transform: translate(0, 0);
+      }
+
+      20% {
+        transform: translate(100px, 0);
+      }
+
+      30% {
+        transform-origin: top left;
+        transform: translate(100px, 0) rotate(60deg);
+      }
+
+      50% {
+        transform-origin: top left;
+        transform: translate(100px, 0) rotate(0deg);
+      }
+
+      70% {
+        transform-origin: top left;
+        transform: translate(100px, 0) rotate(60deg);
+      }
+
+      90% {
+        transform-origin: top left;
+        transform: translate(100px, 0) rotate(45deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(100px, 0) rotate(45deg) translate(100px, 200px);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div style="background-color: red;width: 100px;height: 100px;"></div>
+  <script>
+    /**
+     * animation
+     * animation-name
+     * animation-duration
+     * animation-timing-function
+     * animation-delay
+     * animation-iteration-count
+     * animation-direction
+     * animation-fill-mode
+     * animation-play-state
+     */
+  </script>
+</body>
+
+</html>

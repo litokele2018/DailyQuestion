@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手写reduce 实现map</title>
+</head>
+
+<body>
+  <script>
+    Array.prototype._map = function(fn, cbThis) {
+      let res = []
+      cbThis = cbThis || null
+      this.reduce((pre, cur, index, arr) => {
+        let re = fn.call(cbThis, cur, index, arr)
+        res.push(re)
+      }, null)
+      return res
+    }
+
+    let arr = [123, 32, 43, 645]
+    let x = arr._map(function(item, index, arr) {
+      console.log(this)
+      return index
+    }, null)
+    console.log(x)
+  </script>
+</body>
+
+</html>

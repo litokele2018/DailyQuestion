@@ -7,6 +7,14 @@
 </head>
 <body>
   <script>
+
+    // 寄生
+    function inheritPrototype(sub, sup) {
+      let prototype = Object(sup.prototype)
+      prototype.constructor = sub
+      sub.prototype = prototype
+    }
+
     function SuperType(name) {
       this.name = name
     }
@@ -15,8 +23,8 @@
       SuperType.call(this, name)
     }
 
-    SubType.prototype = new SuperType()
-    SubType.prototype.constructor = SubType
+    inheritPrototype(SubType, SuperType)
+    
     SubType.prototype.sayHello = function () {
       console.log('hello')
     }

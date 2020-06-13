@@ -9,16 +9,12 @@
 
 <body>
   <script>
-    obj = {
-      name: 'a',
-      getName: function() {
-        console.log(this);
-      }
-    }
-
-    var fn = obj.getName
-    obj.getName()
-    fn()
+    let arr = [123, 32, 43, 645]
+    let x = arr.map(function (item, index, arr) {
+      console.log(this)
+      return index
+    }, null)
+    console.log(x)
   </script>
 </body>
 
