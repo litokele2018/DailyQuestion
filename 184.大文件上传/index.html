@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大文件上传</title>
+</head>
+
+<body>
+  <div id="app">
+    <input type="file" @change="handleFileChange" />
+    <button @click="handleUpload">点击上传</button>
+    <div v-for="item in data">
+      {{item}}
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const SIZE = 10 * 1024 * 1024; // 切片大小 10M 其中 1024 * 1024是 1M
+
+    const x = new Vue({
+      el: '#app',
+      data: {
+        container: {
+          file: null,
+        },
+        data: []
+      },
+      computed: {
+        uploadPercentage() {
+          if (!this.container.file || !this.data.length) return 0
+          const loaded = this.data
+            .map(item => item.size * item.percentage)
+            .reduce((acc, cur) => acc + cur)
+          return parseInt((loaded / this.container.file.size).toFixed(2))
+        }
+      },
+
+      methods: {
+        handleFileChange(e) {
+          const [file] = e.target.files
+          if (!file) return
+          // 这里不知道
+          this.data = []
+          console.log(file instanceof Blob) // true
+          Object.assign(this.$data, this.$options.data())
+          this.container.file = file
+        },
+
+        async handleUpload() {
+          // 如果没有文件 直接返回
+          if (!this.container.file) return;
+          // 创建文件块 size 为默认大小  const SIZE = 10 * 1024 * 1024; 
+          const fileChunkList = this.createFileChunk(this.container.file);
+          console.log(fileChunkList)
+          this.data = fileChunkList.map(({ file }, index) => ({
+            chunk: file,
+            hash: this.container.file.name + "-" + index, // 文件名 + 数组下标
+            index,
+            percentage: 0
+          }))
+          await this.uploadChunks()
+        },
+
+        createProgressHandler(item) {
+          return e => {
+            item.percentage = parseInt(String((e.loaded / e.total) * 100))
+          }
+        },
+
+        // 生成文件切片
+        createFileChunk(file, size = SIZE) {
+          // Blob 对象表示一个不可变、原始数据的类文件对象
+          // Blob.prototype.slice 利用 https://developer.mozilla.org/zh-CN/docs/Web/API/Blob
+          const fileChunkList = []
+          // 以指定大小切片
+          let cur = 0
+          while (cur < file.size) {
+            fileChunkList.push({
+              file: file.slice(cur, cur + size)
+            })
+            cur += size
+          }
+          return fileChunkList;
+        },
+        // 上传切片
+        async uploadChunks() {
+          const requestList = this.data
+            .map(({ chunk, hash, index }) => {
+              /*
+              FormData 接口提供了一种表示表单数据的键值对的构造方式，
+              经过它的数据可以使用 XMLHttpRequest.send() 方法送出，本接口和此方法都相当简单直接。
+              如果送出时的编码类型被设为 "multipart/form-data"，它会使用和表单一样的格式。
+              */
+              const formData = new FormData()
+              formData.append("chunk", chunk)
+              formData.append("hash", hash)
+              formData.append("filename", this.container.file.name);
+              return { formData, index }
+            })
+            .map(async ({ formData, index }) =>
+              // 这里返回的是Promise对象 
+              this.request({
+                url: "http://localhost:3000",
+                data: formData,
+                onProgress: this.createProgressHandler(this.data[index])
+              }));
+          await Promise.all(requestList) // 并发切片
+          // 合并请求
+          await this.mergeChunksRequest()
+        },
+
+        // 合并切片 需要由客户端发起请求 让服务器合并切片
+        async mergeChunksRequest() {
+          await this.request({
+            url: 'http://localhost:3000/merge',
+            headers: {
+              "Content-Type": "application/json"
+            },
+            data: JSON.stringify({ filename: this.container.file.name, size: SIZE })
+          })
+        },
+
+        // 封装ajax
+        /**
+         * XMLHttpRequest 原生支持上传进度的监听，只需要监听 upload.onprogress 即可，
+         * 我们在原来的 request 基础上传入 onProgress 参数，给 XMLHttpRequest 注册监听事件
+         */
+        request({
+          url,
+          method = "post",
+          data,
+          onProgress = (e) => e,
+          headers = {},
+          requestList
+        }) {
+          return new Promise(resolve => {
+            const xhr = new XMLHttpRequest()
+            // 监听上传进度 事件
+            xhr.upload.onprogress = onProgress
+            xhr.open(method, url)
+            Object.keys(headers).forEach(key =>
+              xhr.setRequestHeader(key, headers[key])
+            )
+            xhr.send(data)
+            xhr.onload = (e) => {
+              resolve({ data: e.target.response })
+            }
+          })
+        },
+
+      }
+    })
+  </script>
+</body>
+
+</html>
