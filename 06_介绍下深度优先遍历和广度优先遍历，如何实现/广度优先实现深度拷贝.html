@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,4 +52,59 @@
     console.log(deepCopyBFS(test))
   </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 广度优先通过队列来实现
+    function deepCopyBFS(origin) {
+      let queue = []
+      let map = new Map()                       // 采用map来记录 出现过的对象    环？
+      let copy = getEmpty(origin)
+      
+      queue.push([origin, copy])
+      map.set(origin, copy)                     // 记录 初始化的两个
+
+      while (queue.length) {                    // 队列中还存在
+        let [ori, tar] = queue.shift()          // 取出 队列
+
+        // 处理环状
+        for (let key in ori) {                  // 遍历获取到了ori 的key
+          if (map.get(ori[key])) {              // 如果origin对象中的某个key对应的value值 已经存在于map中
+            tar[key] = map.get(ori[key])        // 直接将那个value值赋值给tar[key] 处理环问题
+            continue
+          }
+
+          tar[key] = getEmpty(ori[key])
+          if (tar[key] !== ori[key]) {
+            queue.push([ori[key], tar[key]])
+            map.set(ori[key], tar[key])         // 对于出现环的问题 不会再次添加
+          }
+        }
+      }
+      return copy
+    }
+    function getEmpty(x) {
+      if (Object.prototype.toString.call(x) === '[object Object]') {
+        return {}
+      }
+      if (Object.prototype.toString.call(x) === '[object Array]') {
+        return []  
+      }
+      return x // 其他类型原样返回
+    }
+    
+    console.log(deepCopyBFS({name: 'litokele'}))
+    let test = {age: 18}
+    test.name = test
+    console.log(deepCopyBFS(test))
+  </script>
+</body>
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

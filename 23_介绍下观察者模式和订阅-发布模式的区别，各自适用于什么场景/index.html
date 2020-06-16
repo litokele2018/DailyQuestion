@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,4 +58,65 @@
   </script>
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 观察者模式  没有第三方平台
+    let subject = {
+      observers: [],
+      attach(observer) {
+        this.observers.push(observer)
+      },
+      notify() {
+        this.observers.forEach((observer) => {
+          observer.update()
+        })
+      }
+    }
+    let observer = {
+      update() {
+        console.log('updated')
+      }
+    }
+    subject.attach(observer)
+    subject.notify()
+
+    // 发布订阅模式 只需要通过通知第三方平台 叫他通知订阅者
+    let publisher = {
+      publish() {
+        pubsub.notify()
+      }
+    }
+    let pubsub = { // 像这种可以定义多个 保存不同类型的用户 不用统一发送更新订阅
+      subscribers: [],
+      attach(sub) {
+        this.subscribers.push(sub)
+      },
+      notify() {
+        this.subscribers.forEach(sub => {
+          sub.update()
+        })
+      }
+    }
+    let subscriber = {
+      update() {
+        console.log('updated')
+      }
+    }
+    pubsub.attach(subscriber)
+    publisher.publish()
+
+  </script>
+</body>
+
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

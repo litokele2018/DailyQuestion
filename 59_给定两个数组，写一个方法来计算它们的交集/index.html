@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,4 +31,38 @@
   </script>
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>给定两个数组，写一个方法来计算它们的交集</title>
+</head>
+
+<body>
+  <script>
+    // 例如：给定 nums1 = [1, 2, 2, 1]，nums2 = [2, 2]，返回 [2, 2]
+    function intersection(arr1, arr2) {
+      let result = []
+      while (arr1.length > 0 && arr2.length > 0) {
+        let item = arr1.shift()
+        for (let i in arr2) {
+          if (item === arr2[i]) {
+            result.push(item)
+            arr2.splice(i, 1)
+            break
+          }
+        }
+      }
+      return result
+    }
+    let nums1 = [1, 1]
+    let nums2 = [1]
+    console.log(intersection(nums1, nums2))
+  </script>
+</body>
+
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

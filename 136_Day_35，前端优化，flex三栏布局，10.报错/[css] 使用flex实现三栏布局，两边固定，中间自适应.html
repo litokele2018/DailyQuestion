@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,4 +43,50 @@
   </script>
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[css] 使用flex实现三栏布局，两边固定，中间自适应</title>
+  <style>
+    .wrapper {
+      display: flex;
+      height: 200px;
+    }
+
+    #left,
+    #right {
+      height: 100%;
+      width: 100px;
+      /* 这里设置auto 会采用宽度值 flex-basis */
+      flex: 0 0 auto; 
+    }
+    #left {
+      background-color: purple;
+    }
+    #center {
+      background-color: red;
+      flex: 1;
+    }
+    #right {
+      background-color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div id="left"></div>
+    <div id="center"></div>
+    <div id="right"></div>
+  </div>
+  <script>
+
+  </script>
+</body>
+
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

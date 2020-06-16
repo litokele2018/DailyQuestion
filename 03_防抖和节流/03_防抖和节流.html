@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,4 +71,78 @@
 
   </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  防抖:<input id="inp1" type="text">
+  <br>
+  节流:<input id="inp2" type="text">
+  <script>
+    const inp1 = document.getElementById('inp1')
+    const inp2 = document.getElementById('inp2')
+
+    /* 
+      防抖: 触发高频事件后n秒内 函数只会执行一次， 如果n秒内高频事件被再次触发， 
+        重新计算时间（采用清除定时器）
+     */
+    function debounce(sayHi, duration) {
+      let timer = null //用于保存定时器
+      return function () {                           /////// 为什么 使用箭头函数 里面的this指向window
+        clearTimeout(timer) //直接把上一次清除
+        timer = setTimeout(() => {
+          sayHi.apply(this, arguments)
+          console.log(this)
+        }, duration)
+      }
+    }
+    inp1.addEventListener('input', debounce(sayHi, 1000))
+
+    function sayHi() {
+      console.log('防抖成功')
+    }
+    // function debounce(fn) {
+    //   let timeout = null; // 创建一个标记用来存放定时器的返回值
+    //   return function () {
+    //     clearTimeout(timeout); // 每当用户输入的时候把前一个 setTimeout clear 掉
+    //     timeout = setTimeout(() => { // 然后又创建一个新的 setTimeout, 这样就能保证输入字符后的 interval 间隔内如果还有字符输入的话，就不会执行 fn 函数
+    //       fn.apply(this, arguments);
+    //       console.log(this)
+    //     }, 500);
+    //   };
+    // }
+    // function sayHi() {
+    //   console.log('防抖成功');
+    // }
+
+    // inp1.addEventListener('input', debounce(sayHi)); // 防抖
+    /* 
+      节流: 高频事件触发，但在n秒内只会执行一次，所以节流会 "稀释" 函数的执行频率
+      利用变量保存是否在进行操作  如果在 就返回
+     */
+    function throttle(sayHello, duration) {
+      let canRun = true // 这里通过闭包保存标记
+      return function () {
+        if (!canRun) return //正在执行中
+        canRun = false
+        setTimeout(() => {
+          sayHello.apply(this, arguments)
+          canRun = true
+        }, duration) 
+      }
+    }
+    inp2.addEventListener('input', throttle(sayHello, 1000))
+
+    function sayHello() {
+      console.log('节流成功')
+    }
+
+  </script>
+</body>
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,4 +56,63 @@
     console.log(n)
   </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+    箭头函数是普通函数的简写，可以更优雅的定义一个函数，和普通函数相比，有以下几点差异：
+
+      1、函数体内的 this 对象，就是定义时所在的对象，而不是使用时所在的对象。
+      2、不可以使用 arguments 对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
+      3、不可以使用 yield 命令，因此箭头函数不能用作 Generator 函数。
+      4、不可以使用 new 命令，因为：
+
+      没有自己的 this，无法调用 call，apply。
+      没有 prototype 属性 ，而 new 命令在执行时需要将构造函数的 prototype 赋值给新的对象的 __proto__
+ */
+
+
+    let obj = {
+      foo1: function (data) {
+        console.log(this) // obj
+        console.log(arguments) // Arguments [1, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+      },
+      foo2: (...rest) => {  // 1.箭头函数体内的 this 对象，就是定义时所在的对象，而不是使用时所在的对象
+        console.log(this) // window
+        console.log(arguments) // Uncaught ReferenceError: arguments is not defined
+        // console.log(rest)
+      }
+    }
+    obj.foo1(1)
+    obj.foo2(1)
+    console.log(obj) 
+    
+    function father() {
+      this.name = 'litokele' // this指向下面的result
+    }
+
+    // new 函数实现
+    function newFunc(father, ...rest) {
+      var result = {}; // 新的实例对象
+      result.__proto__ = father.prototype; // 修改指向  因为 箭头函数没有prototype
+      var result2 = father.apply(result, rest); // father中的this指向实例对象
+      
+      if ((typeof result2 === 'object' || typeof result2 === 'function') && result2 !== null) {
+        return result2;
+      }
+      return result;
+    }
+
+    let n = newFunc(father) 
+    console.log(n)
+  </script>
+</body>
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

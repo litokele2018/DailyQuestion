@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,4 +44,51 @@
     doSomethingAfterRequest()
   </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Async/Await 如何通过同步的方式实现异步</title>
+</head>
+<body>
+  <script>
+    // 首先从generate函数说起
+    function foo(a, b) {
+      console.log(a, b)
+    }
+    function* demo() {
+      foo(yield 'a', yield 'b'); // OK
+      let input = yield 'kele'; // OK   yield本身不返回值 只有从next()中传入值才能返回 该参数是上一个yield的返回值
+      console.log(input)
+      return 'end'
+    }
+    let g = demo()
+    console.log(g.next())  // {value: 'a', done: false}
+    console.log(g.next(1)) // {value: 'b', done: false} 
+    console.log(g.next(2)) // {value: 'kele', done: false} 
+    console.log(g.next('我是传入kele的值')) // {value: 'end', done: true}
+
+
+    // 同步方式实现异步
+    async function doSomethingAfterRequest() {
+      await requset()
+      console.log('同步代码开始执行')
+    }
+
+    function requset() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // location.assign('https://www.baidu.com')
+          resolve('success')
+        }, 3000)
+      }).then(res => console.log(res)) // 这里表示异步代码执行完成后 
+    }
+
+
+    doSomethingAfterRequest()
+  </script>
+</body>
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

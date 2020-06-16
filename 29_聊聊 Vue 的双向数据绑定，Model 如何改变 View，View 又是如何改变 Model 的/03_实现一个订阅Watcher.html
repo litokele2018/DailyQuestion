@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -91,4 +92,99 @@
   </script>
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>实现Dep</title>
+</head>
+
+<body>
+  <script>
+    function defineReactive(data, key, val) {
+      observer(val) // 递归查找
+      let dep = new Dep() // 订阅这个属性的
+      Object.defineProperty(data, key, {
+        enumerable: true, //可以枚举
+        configurable: true, // 对象的属性可以被删除 
+        set(newVal) {
+          val = newVal
+          console.log(val + '被修改啦')
+          dep.notify() // 数据被修改 通知各watcher
+        },
+        get() {
+          console.log(val + '被获取了')
+          if (Dep.target) { // 初始化 时 
+            dep.addSub(Dep.target)
+          }
+          return val
+        }
+      })
+    }
+    // 检查是否为数组或对象
+    function checkType(data) {
+      let type = Object.prototype.toString.call(data)
+      if (type === '[object Array]' || type === '[object Object]') {
+        return true
+      }
+      return false
+    }
+
+    // observer
+    function observer(data) {
+      if (!data || !checkType(data)) { // 如果data不存在 或者不是数组或对象就返回 他的属性就不用监听了 因为他没有属性
+        return
+      }
+      Object.keys(data).forEach(key => {
+        defineReactive(data, key, data[key])
+      })
+    }
+
+    // Dep
+    function Dep() {
+      this.subs = []
+      Dep.prototype = {
+        addSub(watcher) {
+          this.subs.push(watcher)
+        },
+        notify() {
+          this.subs.forEach(watcher => {
+            watcher.update()
+          })
+        }
+      }
+    }
+    // Watcher
+    function Watcher(vm, exp, cb) { // vm: 组件  exp: 监听的属性   cb: callback
+      this.vm = vm
+      this.cb = cb
+      this.exp = exp
+      this.value = this.get() // 初始化
+      Watcher.prototype = {
+        update() {
+          this.run()
+        },
+        run() {
+          let value = this.vm.data[this.exp] // vm 组件上有data属性
+          let oldValue = this.value
+          if (oldValue !== value) {
+            this.value = value
+            this.cb.call(this.vm, value, oldValue) //调用回调函数
+          }
+        },
+        get() {
+          Dep.target = this
+          let value = this.vm.data[this.exp] // 调用属性 的get
+          Dep.target = null
+          return value
+        }
+      }
+    }
+  </script>
+</body>
+
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>
