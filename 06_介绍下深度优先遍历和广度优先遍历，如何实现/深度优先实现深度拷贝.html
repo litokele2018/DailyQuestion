@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>深度优先实现深度拷贝</title>
+</head>
+<body>
+  <script>
+    // 工具
+    function getEmpty(x) {
+      if (Object.prototype.toString.call(x) === 'object Array') {
+        return []
+      }
+      if (Object.prototype.toString.call(x) === 'object Object') {
+        return {}
+      }
+      return x //其他情况  类似于字符串
+    }
+
+    function deepCopyDFS(origin) {
+      let result = getEmpty(origin)
+      let stack = []
+      let map = new Map() // 处理环状
+      
+      if (result !== origin) {
+        stack.push([origin, result])
+        map.set(origin, result)
+      }
+
+      while (stack.length) {
+        let [ori, tar] = stack.pop()
+        for (let key in ori) {
+          
+          if (map.get(ori[key])) {
+            tar[key] = ori[key]
+            continue
+          }
+
+          tar[key] = getEmpty(ori[key])
+          if (tar[key] !== ori[key]) {
+            stack.push([ori[key], tar[key]])
+            map.set(ori[key], tar[key])
+          }
+        }
+      }
+
+      return result
+    }
+  </script>
+</body>
+</html>

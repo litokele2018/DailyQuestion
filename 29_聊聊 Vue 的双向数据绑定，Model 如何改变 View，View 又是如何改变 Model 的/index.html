@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>聊聊 Vue 的双向数据绑定，Model 如何改变 View，View 又是如何改变 Model 的</title>
+</head>
+<body>
+  <div id="app">
+
+  </div>
+  <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
+  <script>
+    // 聊聊 Vue 的双向数据绑定，Model 如何改变 View，View 又是如何改变 Model 的
+    var vm = new Vue({
+      data: {
+        obj: {
+          name: 'litokele'
+        }
+      },
+      created() {
+        console.log('vue :',this.obj)
+      }
+    })
+    var name 
+    let obj = {}
+    console.log(obj)
+    Object.defineProperty(obj, 'name', {
+      set: function (newName) {
+        name = newName
+      },
+      get: function () {
+        return name
+      }
+    })
+    obj.name = 'litokele'
+    console.log(obj)
+  </script>
+</body>
+</html>

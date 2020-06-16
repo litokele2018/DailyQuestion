@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    /* 
+      var new_array = arr.map(function callback(currentValue[, index[, array]]) {
+         Return element for new_array 
+      }[, thisArg])
+     */
+
+
+    /* 
+      parseInt(string, radix)   将一个字符串 string 转换为 radix（基数） 进制的整数， radix 为介于2-36之间的数。
+     */
+    function roughScale(x, base) { 
+      const parsed = parseInt(x, base);
+      console.log(parsed)
+      if (isNaN(parsed)) { return 0 }
+      return parsed * 100;
+    }
+    console.log(roughScale('321', 2)); // 321不能用二进制表示，返回NaN
+    console.log(roughScale('321', 0)); // 如果 radix 为0时， 表示为十进制
+
+    let result = ['1', '2', '3'].map(parseInt) // parseInt 函数具有返回值   
+    // map传入3个参数        1) item  2)index  3) array
+    // parseInt 接收2个参数  1) item  2)index
+    /* 
+      1.第一次 '1'  parseInt('1', 0)  /第二个参数为index  十进制 1
+      2.第一次 '2'  parseInt('2', 1)  /第二个参数为index  一进制 NaN
+      1.第一次 '3'  parseInt('3', 2)  /第二个参数为index  二进制 NaN
+     */
+    console.log(result) // [1, NaN, NaN]
+
+
+    console.log(parseInt('1.1')) // 1 只接受一个参数 默认十进制
+
+    let unary = fn => val => fn(val)   // 1.传入parseInt fn = parseInt 返回一个函数  val => parseInt(val) 
+    let parse = unary(parseInt) 
+    console.log(['1.1', '2', '0.3'].map(parse)) //['1.1', '2', '0.3'].map(parseInt(val)) 只接受一个参数 默认十进制
+  </script>
+</body>
+</html>

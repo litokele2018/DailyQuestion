@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[css] style标签写在body前和body后的区别是什么？</title>
+</head>
+
+<body>
+  <script>
+    /* 
+    渲染机制的区别，在body前是已经把样式浏览一遍，到了对应标签直接，渲染样式。显示块。
+    在body后，是浏览器已经把标签浏览了，但基于没有样式，显示的不完全，再把body后的样式表，
+    扫描后，在成为真正的样式。会慢，遇到大型网站，效果更差，这都基于浏览器从上而小的浏览机制导致的。
+     */
+  </script>
+</body>
+
+</html>

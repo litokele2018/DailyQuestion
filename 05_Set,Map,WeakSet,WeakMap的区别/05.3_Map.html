@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map</title>
+</head>
+<body>
+  <div id="kele"></div>
+  <script>
+    /* 
+      3.Map
+      ES6 提供了 Map 数据结构。它类似于对象，也是键值对的集合，但是"键"的范围不限于字符串，
+      各种类型的值（包括对象）都可以当作键。也就是说，Object 结构提供了"字符串—值"的对应，
+      Map 结构提供了"值—值"的对应，是一种更完善的 Hash 结构实现。
+      如果你需要"键值对"的数据结构，Map 比 Object 更合适。
+      https://es6.ruanyifeng.com/#docs/set-map
+     */
+     const kele = document.getElementById('kele')
+     let obj = {}
+     obj[kele] = "你好" // 这里由于obj的键值只能是字符串 将kele转化为了字符串
+     console.log(obj['[object HTMLDivElement]']) // 你好
+     console.log(obj)
+
+    const map = new Map([["name", 'kele'], ['age', 18]]) // name => kele, age => 18 也是键值对关系
+    console.log(map.get('name')) // kele
+    map.set('haha', 123)
+
+    console.log(map)
+
+    const map2 = new Map(map) // 这里map2 和map相同
+    console.log(map2)
+    let obj2 = {}
+    map2.forEach(function(value, key, map) {
+      this.hello = value
+    }, obj2) //这里的obj2来绑定this
+    console.log(obj2)
+  </script>
+</body>
+</html>

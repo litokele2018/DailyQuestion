@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>使用addEventListener点击li弹出内容，并且动态添加li之后有效</title>
+</head>
+
+<body>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+  </ul>
+  <button onclick="handler()">add li</button>
+  <script>
+    const ulElement = document.querySelector('ul')
+    let count = 4
+    const handler = () => {
+      const li = document.createElement('li')
+      li.innerText = ++count
+      ulElement.appendChild(li)
+    }
+    // 在ul上捕获事件
+    ulElement.addEventListener('click', (e) => {
+      alert(e.target.innerText)
+    })
+  </script>
+</body>
+
+</html>

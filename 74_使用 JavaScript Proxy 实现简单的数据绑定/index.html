@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>使用 JavaScript Proxy 实现简单的数据绑定</title>
+</head>
+<body>
+  <input id="inp" type="text" oninput="handleChange()">
+  <div id="app"></div>
+  <script>
+
+    let inp = document.getElementById('inp')
+    let app = document.getElementById('app')
+    
+    let obj = {
+      defaultValue: 'hello world'
+    }
+    let proxy = new Proxy(obj, {
+      get: function(obj, key) {
+        console.log('get')
+        return obj[key]
+      },
+      set(obj, key, value) {
+        obj.defaultValue = value // 直接修改obj  proxy 对象也会变
+        notify()
+      }
+    })
+
+    app.innerHTML = proxy.defaultValue
+    inp.value = proxy.defaultValue
+    
+    function notify() { 
+      app.innerHTML = proxy.defaultValue
+    }
+
+    function handleChange() {
+      proxy.defaultValue = inp.value
+    }
+  </script>
+</body>
+</html>

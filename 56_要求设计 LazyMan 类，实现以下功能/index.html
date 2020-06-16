@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>要求设计 LazyMan 类，实现以下功能</title>
+</head>
+
+<body>
+  <script>
+    // 要求设计 LazyMan 类，实现以下功能
+    /* 
+      LazyMan('Tony');
+      // Hi I am Tony
+
+      LazyMan('Tony').sleep(10).eat('lunch');
+      // Hi I am Tony
+      // 等待了10秒...
+      // I am eating lunch
+
+      LazyMan('Tony').eat('lunch').sleep(10).eat('dinner');
+      // Hi I am Tony
+      // I am eating lunch
+      // 等待了10秒...
+      // I am eating diner
+
+      LazyMan('Tony').eat('lunch').eat('dinner').sleepFirst(5).sleep(10).eat('junk food');
+      // Hi I am Tony
+      // 等待了5秒...
+      // I am eating lunch
+      // I am eating dinner
+      // 等待了10秒...
+      // I am eating junk food
+    */
+
+    class LazyMan1 {
+      constructor(name) {
+        this.name = name
+        this.queue = []
+        console.log(`Hi I am ${this.name}`)
+        setTimeout(() => {
+          // console.log(this.queue)
+          this.next()
+        }, 0)
+      }
+      eat(data) {
+        this.queue.push({
+          func: function E(data) {
+            console.log(`I am eating ${data}`)
+            this.next()
+          },
+          data: data
+        })
+        return this
+      }
+      sleep(time) {
+        this.queue.push({
+          func: function S(time) {
+            setTimeout(() => {
+              console.log(`等待了${time / 1000}秒`)
+              this.next()
+            }, time)
+          },
+          data: time * 1000
+        })
+        return this
+      }
+      sleepFirst(time) {
+        this.queue.splice(0, 0, {
+          func: function SF(time) {
+            setTimeout(() => {
+              console.log(`等待了${time / 1000}秒`)
+              this.next()
+            }, time)
+          },
+          data: time * 1000
+        })
+        return this
+      }
+      next () {
+        if (this.queue.length === 0) {
+          return
+        }
+        let obj = this.queue.shift()
+        obj.func.call(this, obj.data)
+      }
+    }
+
+    function LazyMan(data) {
+      return new LazyMan1(data)
+    }
+
+    LazyMan('Tony').eat('lunch').eat('dinner').sleepFirst(5).sleep(10).eat('junk food')
+  </script>
+</body>
+
+</html>

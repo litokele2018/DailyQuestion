@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>怎么让一个 div 水平垂直居中</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    /* 1 */
+    #app1 {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+    }
+
+    /* 2 */
+    #app2 {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* 3  flex -> margin : auto  */
+    div.parent1 {
+      height: 100%;
+      display: flex;
+    }
+
+    div.child1 {
+      margin: auto;
+      /* ######### */
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+
+    /* 4  flex -> align-item  justify-content */
+    div.parent2 {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    div.child2 {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+
+    /* 5  display : grid */
+    div.parent3 {
+      height: 100%;
+      display: grid;
+    }
+
+    div.child3 {
+      align-self: center;
+      justify-self: center;
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+
+    /* 6  */
+    div.parent4 {
+      height: 100%;
+      /* https://blog.csdn.net/github_38771368/article/details/73549381 
+          https://blog.csdn.net/qq_30638831/article/details/88899199
+      -> font-size : 0 */
+      font-size: 0;  
+      text-align: center;
+    }
+    div.parent4::before {
+        content: "你好啊";
+        display: inline-block;
+        width: 0;
+        background-color: green;
+        height: 100%;
+        vertical-align: middle;
+    }
+    div.child4 {
+      display: inline-block;
+      vertical-align: middle;
+      height: 100px;
+      width: 100px;
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app3" class="parent4">
+    <div class="child4"></div>
+  </div>
+
+  <script>
+
+  </script>
+</body>
+
+</html>

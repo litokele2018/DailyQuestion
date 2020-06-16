@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>写一个组件实现省市二级联调</title>
+</head>
+
+<body>
+  <select name="" id="s1" onchange="handleChange()">
+    <option value="0">四川省</option>
+    <option value="1">海南省</option>
+    <option value="2">贵州省</option>
+  </select>
+  <select name="" id="s2">
+    <option value="0">四川省</option>
+    <option value="1">海南省</option>
+    <option value="2">贵州省</option>
+  </select>
+  <script>
+    let data = [
+      ['宜宾市', '成都市', '德阳市'],
+      ['海口市', '万宁市', '三亚市'],
+      ['贵阳市', '毕节市', '遵义市']
+    ]
+
+    let s1 = document.getElementById('s1')
+    let s2 = document.getElementById('s2')
+
+    function handleChange() {
+      let index = s1.value
+      let op1 = document.createElement('option')
+      op1.value = 0
+      op1.innerText = data[index][0]
+      let op2 = document.createElement('option')
+      op2.value = 1
+      op2.innerText = data[index][1]
+      let op3 = document.createElement('option')
+      op3.value = 2
+      op3.innerText = data[index][2]
+      let fra = document.createDocumentFragment()
+      fra.append(op1, op2, op3)
+
+      Array.from(s2.children).forEach(item => {
+        s2.removeChild(item)
+      })
+      s2.append(fra)
+    }
+  </script>
+</body>
+
+</html>

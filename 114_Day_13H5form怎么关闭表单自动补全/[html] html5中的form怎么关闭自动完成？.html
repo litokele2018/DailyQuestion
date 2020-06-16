@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[html] html5中的form怎么关闭自动完成？</title>
+</head>
+
+<body>
+  <form action="demo_form.html" method="get" autocomplete="off">
+    First name:<input type="text" name="fname"><br>
+    E-mail: <input type="email" name="email"><br>
+    <input type="submit">
+  </form>
+  <form action="" id="formDom">
+    <label for="in1">请输入</label><input id="in1" type="text">
+    <input type="submit" value="提交" autocomplete='off'>
+  </form>
+  <script>
+    /* 
+    h5新增的补全功能，菜鸟教程上写的比较含糊比较难懂；
+    解释： 在部分浏览器上，foucs输入框可以把之前输入过的值自动填入，如果不想自动填入，可以关掉它；
+    autocomplete="off"
+    默认是"on" 开启状态
+
+    一般业务下不会调整这个自动完成，因为对产品来说简化用户操作，建议打开 */
+  </script>
+</body>
+
+</html>

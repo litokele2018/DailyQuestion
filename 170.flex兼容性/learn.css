@@ -1,0 +1,56 @@
+.flex {
+  /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+  display: -webkit-box;
+  /* IE 10 */
+  display: -ms-flexbox;
+  /* 老版本firefox */
+  display: -moz-box;
+  /* chrome */
+  display: -webkit-flex;
+  display: flex;
+}
+
+.flex-1 {
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  -webkit-box-flex: 1;
+  /* OlD firefox */
+  -moz-box-flex: 1;
+  /* IE 10 */
+  -ms-flex: 1;
+  /* chrome */
+  -webkit-flex: 1;
+  /* 新版 */
+  flex: 1;
+}
+
+.flex-direction {
+  -webkit-box-orient: vertical;
+  /* chrome */
+  -webkit-flex-direction: column;
+  /* firefox */
+  -ms-flex-direction: column;
+  /* 新版 */
+  flex-direction: column;
+}
+
+.flex-justify-content {
+  /* 旧版 firefox*/
+  -webkit-box-pack: center;
+  /* chrome */
+  -webkit-justify-content: center;
+  /*  ie */
+  -ms-flex-pack: center;
+  /* 新版 */
+  justify-content: center;
+}
+
+.flex-align-item {
+  /*  */
+  -webkit-box-align: center;
+  /*  */
+  -webkit-align-item: center;
+  /*  */
+  -ms-flex-align: center;
+  /*  */
+  align-items: center;
+}

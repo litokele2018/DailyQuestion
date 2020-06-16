@@ -1,0 +1,40 @@
+https://blog.csdn.net/worm_IT/article/details/80634940
+一、什么是BFC
+
+        BFC是一个独立的渲染区域，只有block-level box参与，它规定了内部的block-level box如何布局，并且与这个区域外部毫不相干。（也就是创建一个封闭空间，与世隔绝）。
+
+        block-level box：块级元素。display属性为block, list-item, table的元素，会生成block-level box；并且参与 block fomatting context。
+
+        inline-level box：行内元素。display 属性为 inline, inline-block, inline-table的元素，会生成inline-level box。并且参与 inline formatting context。
+
+二、哪些元素有成为BFC的资质
+
+        display属性为block，list-item，table。这三个都是用来布局最为合理的元素，因为他们就是用来可视化布局。也就是说不是所有的元素都可以称为BFC的，你必须有万里挑一的天赋，经过修炼，关键时刻才能让你出来拯救世界。相当于《功夫》里的周星驰，拥有万中无一的天赋。
+
+三、什么条件下可以让元素产生BFC
+         html
+
+        float属性不为none；
+
+        overflow不为visible；
+
+        position属性为absolute或者fixed；
+
+        display为inline-block，table-cell，table，caption，flex，inline-flex
+
+        周星驰被火云邪神用拳头锤了一顿，被打通了任督二脉，成为了绝世高手，他人无法近身。
+
+四、BFC元素所具有的特性
+
+        （1）在BFC中，盒子从顶端开始垂直地一个接一个地排列。
+
+        （2）盒子垂直方向的距离由margin决定。属于同一个BFC的两个相邻盒子垂直方向的margin会发生重叠。
+
+        （3）在BFC中，每一个盒子的左外边距（margin-left）会触碰到容器的左外边缘（border-left），对于从右往左的格式来说，会触碰到右边缘。
+
+        （4）BFC不会与浮动盒子产生交集，而是紧贴浮动元素边缘。
+
+        （5）计算BFC高度BFC时，自然也会检测浮动的子盒子高度。
+————————————————
+版权声明：本文为CSDN博主「worm_IT」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/worm_IT/article/details/80634940

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      /* 当为normal时， 遇到空格就换行 */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      /* word-wrap表示文字超出换行 */
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="width: 100px;height: 100px; background-color: red;">
+    sdhkashkdaskhdqwiuiohaskdbkashdioashdaslhk
+  </div>
+  <script>
+    // 正常情况下一段英文超出会自动换行吗
+    // 答： 不会
+    /* 
+    会自动换行
+    overflow-wrap: break-word
+    word-wrap: break-word 
+    
+    只有遇到空白符时换行
+    white-space: normal 
+     */
+  </script>
+</body>
+
+</html>

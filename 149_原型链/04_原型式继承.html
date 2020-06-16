@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04_原型式继承</title>
+</head>
+
+<body>
+  <script>
+    function Inherit(obj) {
+      function F() {}
+      F.prototype = obj
+      return new F()
+    }
+    let o = {
+      name: 'litokele',
+      age: 18,
+      sayHello() {
+        console.log('hello')
+      }
+    }
+
+    let b = Inherit(o)
+    console.log(b)
+    // 两个行为相同
+    let j = Object.create(o)
+    console.log(j)
+  </script>
+</body>
+
+</html>

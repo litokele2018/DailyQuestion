@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>冒泡排序优化2记录最后交换的位置</title>
+</head>
+<body>
+  <img src="https://img-blog.csdn.net/2018062700091521?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hhbnNpb256/
+  font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="">
+  <script src="./utils.js"></script>
+  <script>
+    
+    let arr = randomArray(5000)
+    
+    // 记录最后交换的位置 其后面的都是排好序的
+    function bubbleSort(arr) {
+      let length = arr.length
+      let pos
+      let isSwap = false
+      while (length > 1) {
+        isSwap = false
+        for (let i = 0; i < length - 1; i ++) {
+          if (arr[i] > arr[i + 1]) {
+            swap(i, i + 1, arr)
+            pos = i
+            isSwap = true
+          }
+        }
+        length = pos + 1  // 下一次遍历的长度
+        if (!isSwap) { // 如果 没有交换 说明排完了 break
+          break
+        }
+        if (pos === 0) { // 如果最后一次交换 是第一个 交换完就没了
+          break
+        }
+      }
+      return arr
+    }
+    console.log(countTime(bubbleSort, arr))  // average: 76 ms
+    console.log(bubbleSort(arr))
+    
+    // 数组的sort 函数
+    console.log(countTime(Array.prototype.sort.bind(arr), (a, b) => {return a - b})) // sort 函数更慢  487ms 但比 普通的冒泡更快
+    console.log(arr.sort((a, b) => {a - b}))
+  </script>
+</body>
+</html>

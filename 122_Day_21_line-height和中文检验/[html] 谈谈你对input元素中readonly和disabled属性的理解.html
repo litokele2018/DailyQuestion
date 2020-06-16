@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[html] 谈谈你对input元素中readonly和disabled属性的理解</title>
+</head>
+
+<body>
+  <!-- 不可写入 -->
+  <input type="text" name="" id="inp1" readonly placeholder="readonly">
+  <!-- 禁止使用 -->
+  <input type="text" name="" id="inp2" disabled placeholder="disabled">
+
+  <script>
+    let re = document.getElementById('inp1');
+    let dis = document.getElementById('inp2');
+    console.log(re, dis)
+  </script>
+</body>
+
+</html>

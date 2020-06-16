@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>已知如下代码，如何修改才能让图片宽度为 300px ？注意下面代码不可修改</title>
+  <style>
+
+  </style>
+</head>
+<body>
+  <img src="1.jpg" style="width:480px!important;">
+  <script>
+    /*   
+      总结一下
+      1、给图片设置max-width:300px
+      2、给图片设置transform: scale(0.625,0.625)，但是占据的位置还是原来的480px
+      3、给图片设置box-sizing: border-box;padding: 0 90px;，但图片左右会有90px的内边距
+      4、给图片设置zoom: 0.625
+      5、js获取元素使用imgs[0].setAttribute("style","width:300px!important;")或者imgs[0].style.cssText='width:300px;'
+      6、给图片设置动画，from{width:300px;}to{width:300px;}，动画时间为0s，原理是CSS动画的样式优先级高于!important的特性
+     */
+    let img = document.getElementsByTagName('img')[0]
+    img.style.width = 300 + 'px'
+  </script>
+</body>
+</html>

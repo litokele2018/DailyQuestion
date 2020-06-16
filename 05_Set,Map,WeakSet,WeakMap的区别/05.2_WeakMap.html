@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* 
+    2. WeakSet
+        WeakSet 结构与 Set 类似，也是不重复的值的集合。但是，它与 Set 有两个区别。
+          1) 首先，WeakSet 的成员只能是"对象"，而不能是其他类型的值。
+          2) WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，
+          也就是说，如果 "其他对象都不再引用" 该对象，那么垃圾回收机制会自动回收该对象所占
+          用的内存，不考虑该对象还存在于 WeakSet 之中。
+          
+      由于上面这个特点，WeakSet 的成员是不适合引用的，因为它会随时消失。
+      另外，由于 WeakSet 内部有多少个成员，取决于垃圾回收机制有没有运行，
+      运行前后很可能成员个数是不一样的，而垃圾回收机制何时运行是不可预测的，因此 ES6 规定 WeakSet 不可遍历
+    */
+    let weakSet = new WeakSet([[1, 2], [3, 4]])
+    console.log([] instanceof Object) // true
+    weakSet = new WeakSet([{name: 'kele'}, {age: '18'}])
+    let obj = {
+      gender: '男'
+    }
+    weakSet.add([520]) // 数组也是对象的实例
+    weakSet.add(window)
+    weakSet.add(obj)
+    console.log(weakSet.has([520])) // false 因为[520] 与前面的 [520] 地址不同
+    console.log(weakSet.has(obj)) // true
+    weakSet.delete(obj)
+    console.log(weakSet.has(obj)) // false
+    console.log(weakSet)
+  </script>
+</body>
+</html>

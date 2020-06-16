@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.实现一个监听器Observer，用来劫持并监听所有属性，如果有变动的，就通知订阅者。</title>
+</head>
+
+<body>
+  <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
+  <script>
+    /* 
+      https://juejin.im/entry/5923973da22b9d005893805a
+
+      1.实现一个监听器Observer，用来劫持并监听所有属性，如果有变动的，就通知订阅者。
+      2.实现一个订阅者Watcher，可以收到属性的变化通知并执行相应的函数，从而更新视图。
+      3.实现一个解析器Compile，可以扫描和解析每个节点的相关指令，并根据初始化模板数据以及初始化相应的订阅器。
+    */
+
+   // 1. observer
+    function defineReactive(data, key, val) {
+      observer(val) // 递归查找
+      Object.defineProperty(data, key, {
+        enumerable: true, //可以枚举
+        configurable: true, // 对象的属性可以被删除 
+        set(newVal) {
+          val = newVal
+          console.log(val + '被修改啦')
+        },
+        get() {
+          console.log(val + '被获取了')
+          return val
+        }
+      })
+    }
+    // 检查是否为数组或对象
+    function checkType(data) {
+      let type = Object.prototype.toString.call(data)
+      if (type === '[object Array]' || type === '[object Object]') {
+        return true
+      }
+      return false
+    }
+    function observer(data) {
+      if (!data || !checkType(data)) { // 如果data不存在 或者不是数组或对象就返回 他的属性就不用监听了 因为他没有属性
+        return
+      }
+      Object.keys(data).forEach(key => {
+        defineReactive(data, key, data[key])
+      })
+    }
+    let data = {
+      name: 'litokele',
+      age: 18,
+      gender: '男',
+      favorite: ['basketball', 'succer'],
+      like: {
+        great: 'coding',
+        bad: 'temper',
+        normal: 'hair'
+      }
+    }
+    observer(data)
+    console.log(data)
+  </script>
+</body>
+
+</html>

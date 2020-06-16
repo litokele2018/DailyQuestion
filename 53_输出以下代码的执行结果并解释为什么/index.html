@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 输出以下代码的执行结果并解释为什么 -->
+  <script>
+    var a = {
+      n: 1
+    };
+    var b = a;
+    a.x = a = { // a.x 先声明 undefined
+      n: 2
+    };
+    debugger
+    console.log(a.x) // {n: 2}
+    console.log(b.x) // {n: 2}
+  </script>
+</body>
+
+</html>
