@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,4 +55,62 @@
   </script>
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 的响应式原理中 Object.defineProperty 有什么缺陷？</title>
+</head>
+
+<body>
+  <script>
+    // Vue 的响应式原理中 Object.defineProperty 有什么缺陷？
+    // 为什么在 Vue3.0 采用了 Proxy，抛弃了 Object.defineProperty？
+    /* 
+      Object.defineProperty无法监控到数组下标的变化，导致通过数组下标添加元素，不能实时响应；
+      Object.defineProperty只能劫持对象的属性，从而需要对每个对象，每个属性进行遍历，如果，属性值是对象，还需要深度遍历。Proxy可以劫持整个对象，并返回一个新的对象。
+      Proxy不仅可以代理对象，还可以代理数组。还可以代理动态增加的属性。
+     */
+
+    let arr = ['litokele', 'kele', 'kekegigi']
+    for (let i in arr) {
+      let value = arr[i]
+      Object.defineProperty(arr, i, {
+        set(newValue) {
+          value = newValue
+          console.log('set')
+        },
+        get() {
+          console.log('get')
+          return value
+        }
+      })
+    }
+    arr[3] = 4 // 不能触发set
+    arr[3]     // 不能触发get
+    arr[2]     // get OK
+    arr[2] = 5 // set OK
+
+    let arr2 = ['litokele', 'kele', 'kekegigi']
+    let proxy = new Proxy(arr2, {
+      get(target, propKey, xxx) {
+        console.log(target, propKey, xxx) // ["litokele", "kele", "kekegigi"], "0", Proxy {0: "litokele", 1: "kele", 2: "kekegigi"}
+        console.log('get')
+        return target[propKey]
+      },
+      set(target, propKey, propValue, xxx) {
+        target[propKey] = propValue
+        console.log('set')
+      }
+    })
+
+    console.log(proxy[0]) // get litokele
+    console.log(proxy[3] = 'hello') //可以触发 set
+  </script>
+</body>
+
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

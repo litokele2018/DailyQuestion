@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,4 +37,44 @@
   </script>
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2>{{title}}</h2>
+    <h1>{{name}}</h1>
+  </div>
+  <script src="./js/Dep.js"></script>
+  <script src="./js/Observer.js"></script>
+  <script src="./js/Watcher.js"></script>
+  <script src="./js/compile.js"></script>
+  <script>
+    var ele = document.querySelector('#name');
+    var selfVue = new myVue({
+      el: '#app',
+      data: {
+        title: 'hello world',
+        name: ''
+      }
+    });
+
+    window.setTimeout(function () {
+      selfVue.title = '你好';
+    }, 2000);
+
+    window.setTimeout(function () {
+      selfVue.name = 'canfoo';
+    }, 2500);
+  </script>
+</body>
+
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

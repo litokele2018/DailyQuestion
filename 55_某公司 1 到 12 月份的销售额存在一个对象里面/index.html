@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,4 +18,25 @@
     console.log(result)
   </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 某公司 1 到 12 月份的销售额存在一个对象里面
+    // 如下：{1:222, 2:123, 5:888}，请把数据处理为如下结构：[222, 123, null, null, 888, null, null, null, null, null, null, null]。
+    let a = {1:222, 2:123, 5:888}
+    let result = new Array(12).fill(null)
+    for (let key in a) {
+      result[key - 1] = a[key]
+    }
+    console.log(result)
+  </script>
+</body>
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

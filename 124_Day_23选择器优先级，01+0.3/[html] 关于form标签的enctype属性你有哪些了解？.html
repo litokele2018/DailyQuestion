@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [html] 关于<form>标签的enctype属性你有哪些了解？
 <form action="" enctype="application/x-www-form-urlencoded"></form>
 <form action="" enctype="multipart/form-data"></form>
@@ -22,4 +23,30 @@ multipart/form-data
 它不对字符进行编码，在使用包含文件(如图片、mp4等文件)上传控件的表单时必须使用该值
 
 text/plain
+=======
+[html] 关于<form>标签的enctype属性你有哪些了解？
+<form action="" enctype="application/x-www-form-urlencoded"></form>
+<form action="" enctype="multipart/form-data"></form>
+<form action="" enctype="text/plain"></form>
+
+当 method 属性值为 post 时，enctype 就是将表单的内容提交给服务器的 MIME 类型 。
+可能的取值有：
+application/x-www-form-urlencoded：未指定属性时的默认值。
+multipart/form-data：此值用于一个 type 属性设置为 "file" 的 <input> 元素。
+text/plain：(HTML5)
+此值可以被 <button> 或者 <input> 元素中的 formenctype 属性覆盖
+
+form 标签的 enctype 属性指定将数据回发到服务器时浏览器如果对表单数据进行编码，其有三种编码形式：
+
+application/x-www-form-urlencoded(也是默认格式)
+编码类型会将表单中发送到服务器之前都会进行编码(空格转换为 "+" 加号，特殊符号转换为 ASCII HEX 值)，
+数据编码成键值对的形式，当表单的action为post时，它会把form数据封装到 http body 中，然后发送到服务器；
+当表单的action位get时，它会把表单中发送的数据转换成一个字符串(如：a=1&b=2&c=3)并使用?连接到 url 后面。
+在不指定 enctype 属性时 application/x-www-form-urlencoded 是默认属性。
+
+multipart/form-data
+它不对字符进行编码，在使用包含文件(如图片、mp4等文件)上传控件的表单时必须使用该值
+
+text/plain
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 数据以纯文本格式进行编码，空格转换为 "+" 加号，但不对特殊字符编码

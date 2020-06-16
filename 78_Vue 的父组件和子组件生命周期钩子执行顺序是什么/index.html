@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,4 +39,46 @@
     }
   </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 的父组件和子组件生命周期钩子执行顺序是什么</title>
+</head>
+<body>
+  <script>
+    /* 
+      1. beforeCreate
+      2. created
+      3. beforeMount
+      4. mounted
+      5. beforeUpdate
+      6. updated
+      7. activated
+      8. deactivated
+      9. beforeDestroy
+      10. destroyed
+      11. errorCaptured 2.5.0新增 如果子孙组件的错误被捕获时 或调用 ，return false 阻止继续上传
+    */
+
+    /* 
+      父组建： beforeCreate -> created -> beforeMount
+      子组件： -> beforeCreate -> created -> beforeMount -> mounted
+      父组件： -> mounted
+      总结：从外到内，再从内到外
+    */
+
+    let obj = {
+      // (err: Error, vm: Component, info: string) => ?boolean
+      // 此钩子会收到三个参数：错误对象、发生错误的组件实例以及一个包含错误来源信息的字符串
+      errorCaptured(err, vm, info) {
+        
+        return false
+      }
+    }
+  </script>
+</body>
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

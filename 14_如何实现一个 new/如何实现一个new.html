@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,4 +38,45 @@
     console.log('new', n)
   </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>如何实现一个new</title>
+</head>
+<body>
+  <script>
+    // new 一个构造函数 
+    /* 
+      如果有返回就 返回
+      如果没有 就是实力对象哦
+      返回字符串或数字 还是实例对象
+      返回函数 就返回函数 
+      返回数组 就返回数组
+     */
+    function Person() {
+      this.name = 'litokele'
+      this.age = 18
+      return () => {}
+    }
+
+    // method 1
+    function myNew1(fn, ...arguments) {
+      let result = {}
+      let res = fn.apply(result, arguments)
+      result.__proto__ = fn.prototype // 修改原型链 
+      if (res && (typeof res === 'object' || typeof res === 'function')) {  // 其中数组和对象 typeof [] 或 {} === object
+        return res
+      }
+      return result
+    }
+    let mn = myNew1(Person)
+    console.log('myNew', mn)
+    let n = new Person()
+    console.log('new', n)
+  </script>
+</body>
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

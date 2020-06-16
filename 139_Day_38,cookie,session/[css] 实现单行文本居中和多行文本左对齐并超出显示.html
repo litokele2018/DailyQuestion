@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,4 +43,50 @@
 
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[css] 实现单行文本居中和多行文本左对齐并超出显示"..."</title>
+  <style>
+    .single-text {
+      width: 500px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      color: white;
+      background: lightblue;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .multi-text {
+      width: 50%;
+      height: 4.5rem;
+      line-height: 1.5;
+      padding: 20px;
+      background: lightblue;
+      overflow: hidden;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .multi-text::after {
+      content: '...';
+      height: 1.5rem;
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+</body>
+
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [css] 说说你对z-index的理解
 对于一个已经定位的盒子（即其 position 属性值不是 static，
 这里要注意的是 CSS 把元素看作盒子），z-index 属性指定：
@@ -16,4 +17,24 @@
     z-index: initial;
     z-index: unset;
   }
+=======
+[css] 说说你对z-index的理解
+对于一个已经定位的盒子（即其 position 属性值不是 static，
+这里要注意的是 CSS 把元素看作盒子），z-index 属性指定：
+<style>
+  /* 字符值 */
+  * {
+    z-index: auto;
+    /* 整数值 */
+    z-index: 0;
+    z-index: 3;
+    z-index: 289;
+    z-index: -1;
+    /* 使用负值降低优先级 */
+    /* 全局值 */
+    z-index: inherit;
+    z-index: initial;
+    z-index: unset;
+  }
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </style>

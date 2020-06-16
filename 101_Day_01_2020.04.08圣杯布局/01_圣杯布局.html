@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,4 +53,60 @@
   </script>
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>圣杯布局和双飞翼布局的理解和区别，并用代码实现</title>
+  <style>
+    /* 圣杯布局  利用浮动和相对定位 */ 
+    .clearfix::after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    .wrapper {
+      padding: 0 100px;
+    }
+    
+    .center {
+      float: left;
+      width: 100%;
+    }
+
+    .left {
+      float: left;
+      margin-left: -100%;
+      position: relative;
+      left: -100px;
+    }
+
+    .right {
+      float: left;
+      margin-left: -100px;
+      position: relative;
+      right: -100px;
+    }
+  </style>
+</head>
+
+<body>
+  <header style="background-color: salmon;">我是头部</header>
+  <!-- 中间项优先加载 -->
+  <div class="wrapper clearfix">
+    <div class="center" style="background-color: slategray; height: 100px;">12312</div>
+    <div class="left" style="width: 100px; height: 100px; background-color: red;">left</div>
+    <div class="right" style="width: 100px; height: 100px; background-color: pink;">right</div>
+  </div>
+  <footer style="background-color: springgreen;">我是footer</footer>
+  <script>
+
+  </script>
+</body>
+
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

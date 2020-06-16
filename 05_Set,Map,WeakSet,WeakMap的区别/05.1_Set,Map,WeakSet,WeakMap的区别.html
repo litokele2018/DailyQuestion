@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,4 +47,54 @@
       })
   </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set,Map,WeakSet,WeakMap的区别</title>
+</head>
+<body>
+  <script>
+    /* 
+      1.Set 
+        是一个种数据结构 ES6 成员的值是 唯一的 不能重复
+     */
+      // let set = new Set({name: 'litokele'}) // 不能直接放对象 不能遍历
+      let set = new Set([{name: 'litokele'}])  // key value 都是 这个对象
+      // 添加某个值，返回 Set 结构本身。  可以链式调用
+      set.add(1).add(2).add(3).add(4).add(0)
+
+      set.has(1)    // return boolean
+      set.delete(1) // return boolean
+      // set.clear()   // no return
+      set.size // 属性
+      console.log(set)
+      // Set的遍历方法
+      /* 
+        Set 结构的实例默认可遍历，它的默认遍历器生成函数就是它的values方法
+        Set.prototype[Symbol.iterator] === Set.prototype.values
+
+        Set.prototype.keys()   : 返回键名的遍历器 1
+        Set.prototype.values() : 返回键值的遍历器 1
+        Set.prototype.entries(): 返回键值对的遍历器 [1, 1]
+        Set.prototype.forEach(): 使用回调函数遍历每个成员
+      */
+
+      for (let item of set.keys()) {
+        console.log('keys', item)
+      }
+      for (let item of set.values()) {
+        console.log('values', item)
+      }
+      for (let item of set.entries()) {
+        console.log('entries', item)
+      }
+      set.forEach((value, key) => {
+        console.log(value, key)
+      })
+  </script>
+</body>
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

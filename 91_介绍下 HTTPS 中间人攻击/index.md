@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/142
 
 https协议由 http + ssl 协议构成，具体的链接过程可参考SSL或TLS握手的概述
@@ -15,3 +16,22 @@ https协议由 http + ssl 协议构成，具体的链接过程可参考SSL或TLS
 防范方法：
 
 服务端在发送浏览器的公钥中加入CA证书，浏览器可以验证CA证书的有效性
+=======
+https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/142
+
+https协议由 http + ssl 协议构成，具体的链接过程可参考SSL或TLS握手的概述
+
+中间人攻击过程如下：
+
+服务器向客户端发送公钥。
+攻击者截获公钥，保留在自己手上。
+然后攻击者自己生成一个【伪造的】公钥，发给客户端。
+客户端收到伪造的公钥后，生成加密hash值发给服务器。
+攻击者获得加密hash值，用自己的私钥解密获得真秘钥。
+同时生成假的加密hash值，发给服务器。
+服务器用私钥解密获得假秘钥。
+服务器用假秘钥加密传输信息
+防范方法：
+
+服务端在发送浏览器的公钥中加入CA证书，浏览器可以验证CA证书的有效性
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28

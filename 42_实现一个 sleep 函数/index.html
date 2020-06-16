@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,4 +49,56 @@
   </script>
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>实现一个 sleep 函数</title>
+</head>
+
+<body>
+  <script>
+    // 比如 sleep(1000) 意味着等待1000毫秒，可从 Promise、Generator、Async/Await 等角度实现
+
+    // Promise
+    function sleep1(time) {
+      return new Promise((resolve, reject) => {
+        setTimeout(resolve, time)
+      })
+    }
+    sleep1(1000).then(() => {
+      console.log('user Promise!')
+    })
+
+    // Generator
+    function* sleep2(time) {
+      yield new Promise(resolve => {
+        setTimeout(resolve, time)
+      })
+    }
+    let s = sleep2(2000)
+    s.next().value.then(() => {
+      console.log('use Generator!')
+    })
+
+    // Async/Await
+    function sleep3(time) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve('xxx')
+        }, time)
+      })
+    }
+    async function xxx() {
+      let result = await sleep3(3000)
+      console.log(result) // xxx
+    }
+    xxx()
+  </script>
+</body>
+
+>>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>
