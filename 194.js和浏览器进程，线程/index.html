@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="blog-content-box">
+    <div class="article-header-box">
+      <div class="article-header">
+        <div class="article-title-box">
+          <h1 class="title-article">JavaScriptJS运行机制-进程和线程</h1>
+        </div>
+        <div class="article-info-box">
+          <div class="article-bar-top">
+            <!--文章类型-->
+            <!--原创-->
+            <img class="article-type-img" src="https://csdnimg.cn/release/phoenix/template/new_img/original.png" alt="">
+            <!--翻译-->
+            <!--转载-->
+            <div class="bar-content">
+              <a class="follow-nickName" href="https://me.csdn.net/dreamingbaobei3" target="_blank" rel="noopener">牧云流</a>
+              <span class="time">2019-04-25 12:02:02</span>
+              <img class="article-read-img article-heard-img" src="https://csdnimg.cn/release/phoenix/template/new_img/articleRead.png" alt="">
+              <span class="read-count">729</span>
+              <a id="blog_detail_zk_collection" class="un-collection" data-report-click="{&quot;mod&quot;:&quot;popu_823&quot;,&quot;ab&quot;:&quot;new&quot;}">
+                <img class="article-collect-img article-heard-img un-collect-status" style="display:inline-block" src="https://csdnimg.cn/release/phoenix/template/new_img/collect.png" alt="">
+                <img class="article-collect-img article-heard-img collect-status" style="display:none" src="https://csdnimg.cn/release/phoenix/template/new_img/tobarCollectionActive.png" alt="">
+                <span class="name">收藏</span>
+                <span class="get-collection">
+                  2 </span>
+              </a>
+            </div>
+          </div>
+          <div class="blog-tags-box">
+            <div class="tags-box artic-tag-box">
+              <span class="label">分类专栏：</span>
+              <a class="tag-link" target="_blank" rel="noopener" href="https://blog.csdn.net/dreamingbaobei3/category_8686310.html">
+                前端进阶之路 </a>
+              <a class="tag-link" target="_blank" rel="noopener" href="https://blog.csdn.net/dreamingbaobei3/category_8696484.html">
+                Javascript </a>
+
+            </div>
+          </div>
+          <div class="up-time"><span>最后发布:2019-04-25 12:02:02</span><span>首发:2019-04-25 12:02:02</span></div>
+          <div class="slide-content-box">
+            <div class="all-tags-box">
+            </div>
+            <div class="article-copyright">
+              <div class="creativecommons">
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"></a>
+              </div>
+              <div class="creativecommons">
+                版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。 </div>
+              <div class="article-source-link">
+                本文链接：<a href="https://blog.csdn.net/dreamingbaobei3/article/details/89513338">https://blog.csdn.net/dreamingbaobei3/article/details/89513338</a>
+              </div>
+            </div>
+          </div>
+          <div class="operating">
+            <a class="href-article-edit slide-toggle">版权</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--python安装手册结束-->
+    <article class="baidu_pl">
+      <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-211130ba7a.css">
+        <div id="content_views" class="markdown_views prism-atom-one-light">
+          <!-- flowchart 箭头图标 勿删 -->
+          <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+          </svg>
+          <p>前文中，已经多次提到了浏览器是多进程的，JS是单线程的，具体要怎么理解呢？</p>
+          <h2><a name="t0"></a><a name="t0"></a><a id="_2"></a>一、进程和线程</h2>
+          <p><strong>进程和线程</strong>是涉及到操作系统如何调度资源（CPU 、内存、磁盘）的概念，先抛出概念:进程是操作系统分配资源的最小单元，线程是操作系统调度的最小单元。<br>
+            进程更倾向于内存管理的概念,线程更倾向于cpu的运行。</p>
+          <ul>
+            <li>一个程序可以有不止一个的进程；</li>
+            <li>一个进程可以没有线程，作为空进程存在，但是由于里面没有线程，cpu在这里无法得到执行；cpu的执行依附于线程<br>
+              线程无法脱离进程而存在。</li>
+          </ul>
+          <h2><a name="t1"></a><a name="t1"></a><a id="_10"></a>二、浏览器进程</h2>
+          <p>浏览器作为一个计算机应用程序，如果打开浏览器默认进入一个空白页，相当于新起了一个浏览器的主进程和GPU进程，如果再打开一个标签页，则又创建了一个渲染进程。<br>
+            调出chrome的任务管理器（shift+esc或在标签栏空白处点右键），可以看到：<br>
+            <img src="https://img-blog.csdnimg.cn/201904251257364.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2RyZWFtaW5nYmFvYmVpMw==,size_16,color_FFFFFF,t_70" alt=""></p>
+          <ul>
+            <li>浏览器是多进程的</li>
+            <li>浏览器之所以能够运行，是因为系统给它的进程分配了资源（cpu、内存）</li>
+            <li>浏览器每打开一个Tab页，就相当于创建了一个独立的浏览器进程。</li>
+          </ul>
+          <h6><a id="_18"></a>浏览器多进程的优点：</h6>
+          <ul>
+            <li>避免单个页面崩溃影响整个浏览器</li>
+            <li>避免第三方插件崩溃影响整个浏览器</li>
+            <li>多进程充分利用多核优势</li>
+            <li>方便使用沙盒模型隔离插件等进程，提高浏览器安全性<br>
+              简单的说，浏览器多进程避免了一个页面或一个插件的崩溃导致整个浏览器的崩溃，大大改善了用户体验。</li>
+          </ul>
+          <p>PS：“沙盒”技术的实践运用流程是：让疑似病毒文件的可疑行为在虚拟的“沙盒”里充分表演，“沙盒”会记下它的每一个动作；当疑似病毒充分暴露了其病毒属性后，“沙盒”就会执行“回滚”机制：将病毒的痕迹和动作抹去，恢复系统到正常状态。如果您还不懂，那说的再简单一些。想象一下，在一个装满了平整细沙的盒子里，我们可以尽情随意地在上面作画、涂写，无论画的好坏，最后轻轻一抹，沙盒又回到了原来的平整状态。沙盒的魅力就在于他允许你出错，还可以给你改正的机会。</p>
+          <h6><a id="_27"></a>浏览器多进程的缺点：</h6>
+          <p>浏览器多进程提高用户体验的同时是要付出代价的，那就是对系统资源的消耗加大，特别是内存的消耗。</p>
+          <h2><a name="t2"></a><a name="t2"></a><a id="__30"></a>三 、浏览器有哪些进程</h2>
+          <h4><a id="1Browser_31"></a>1、Browser进程：</h4>
+          <p>浏览器的主进程（负责协调、主控），只有一个，相当于浏览器的大脑，作用有</p>
+          <ul>
+            <li>负责浏览器界面显示，与用户交互，如前进，后退等；</li>
+            <li>负责各个页面的管理，创建和销毁其他进程；</li>
+            <li>将渲染线程得到的内存中的位图渲染到用户界面上；</li>
+            <li>网络资源的管理，下载等。</li>
+          </ul>
+          <h4><a id="2_37"></a>2、第三方插件进程：</h4>
+          <p>每种类型的插件对应一个进程，仅当使用该插件时才创建。</p>
+          <h4><a id="3GPU_39"></a>3、GPU进程：</h4>
+          <p>最多一个，负责3D绘制，只有当该页面使用了硬件加速才会使用它，来渲染页面。否则的话，不使用这个进程，而是用Browser进程来渲染页面。</p>
+          <h4><a id="4Renderer_41"></a>4、浏览器渲染进程（Renderer进程）</h4>
+          <p>也称浏览器内核、Renderer进程（内部是多线程的），默认每个Tab页面一个进程，互不影响。主要作用为页面渲染，脚本执行，事件处理，任务队列轮询等。<br>
+            浏览器有时会将多个渲染进程合并（譬如打开多个空白标签页后，会发现多个空白标签页被合并成了一个进程）。<br>
+            <img src="https://img-blog.csdnimg.cn/20190425131115439.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2RyZWFtaW5nYmFvYmVpMw==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+          <h2><a name="t3"></a><a name="t3"></a><a id="_45"></a>四、前端重点：渲染进程（浏览器内核）</h2>
+          <p>现在我们再来捋一下进程和线程，浏览器是多进程的，每打开一个tab页相当于创建了一个渲染进程，每个渲染进程是又多线程的。<br>
+            页面的渲染，JS的执行，事件的循环，都在渲染进程中进行。<br>
+            渲染进程中的主要常驻线程：</p>
+          <h4><a id="1GUI_49"></a>1、GUI渲染线程</h4>
+          <ul>
+            <li>负责渲染浏览器界面，解析HTML，CSS，构建DOM树和RenderObject树，布局和绘制等。</li>
+            <li>当界面需要重绘（Repaint）或由于某种操作引发回流(reflow)时，该线程就会执行。</li>
+          </ul>
+          <h4><a id="2JS_52"></a>2、JS引擎线程</h4>
+          <ul>
+            <li>
+              <p>也称为JS内核，负责处理Javascript脚本程序。（例如V8引擎）</p>
+            </li>
+            <li>
+              <p>JS引擎线程负责解析Javascript脚本，运行代码。</p>
+            </li>
+            <li>
+              <p>JS引擎一直等待着任务队列中任务的到来，然后加以处理，浏览器无论什么时候都只有一个JS线程在运行JS程序，<strong>JS是单线程的</strong>。</p>
+              <p>PS：GUI渲染线程与JS引擎线程是互斥的，当JS引擎执行时GUI线程会被挂起，GUI更新会被保存在一个队列中等到JS引擎空闲时立即被执行;如果JS执行的时间过长，会导致页面渲染被阻塞。</p>
+            </li>
+          </ul>
+          <h4><a id="3_59"></a>3、事件触发线程</h4>
+          <p>接受浏览器里面的操作事件响应。如在监听到鼠标、键盘等事件的时候， 如果有事件处理函数，就将对应的任务压入任务队列（添加到待处理队列的队尾），等待JS引擎的处理。<br>
+            事件触发线程管理着一个任务队列。</p>
+          <h4><a id="4_64"></a>4、定时触发器线程</h4>
+          <ul>
+            <li>setInternal与setTimeout所在线程</li>
+            <li>浏览器定时计数器并不是由JavaScript引擎计数的,（因为JavaScript引擎是单线程的, 如果处于阻塞线程状态就会影响记计时的准确）</li>
+            <li>因此通过单独线程来计时并触发定时（计时完毕后，添加到事件队列中，等待JS引擎空闲后执行）<br>
+              注意，W3C在HTML标准中规定，规定要求setTimeout中低于4ms的时间间隔算为4ms。</li>
+          </ul>
+          <h4><a id="5http_70"></a>5、异步http请求线程</h4>
+          <ul>
+            <li>在XMLHttpRequest在连接后是通过浏览器新开一个线程请求</li>
+            <li>将检测到状态变更时，如果设置有回调函数，异步线程就产生状态变更事件，将这个回调再放入事件队列中。再由JavaScript引擎执行。</li>
+          </ul>
+          <h2><a name="t4"></a><a name="t4"></a><a id="Browser_74"></a>Browser进程和渲染进程的通信过程</h2>
+          <p>就像前文中那样新打开谷歌浏览器，并打开任务管理器，可以看到：任务管理器中出现了三个进程，来了解一下浏览器的主进程和渲染进程是怎样通信的：</p>
+          <ol>
+            <li>Browser进程收到用户请求（输入网址并回车），首先需要获取页面内容（譬如通过网络下载资源），随后将该任务通过RendererHost接口传递给Render进程。</li>
+            <li>Renderer进程的Renderer接口收到消息，简单解释后，交给渲染线程，然后开始渲染。<br>
+              ① 渲染线程接收请求，加载网页并渲染网页，这其中可能需要Browser进程获取资源和需要GPU进程来帮助渲染；<br>
+              ② 可能会有JS线程操作DOM（这样可能会造成回流并重绘）；<br>
+              ③ 最后Render进程将结果传递给Browser进程；</li>
+            <li>Browser进程接收到结果并将结果绘制出来</li>
+          </ol>
+          <p>参考：<a href="https://segmentfault.com/a/1190000012925872" rel="nofollow">https://segmentfault.com/a/1190000012925872</a></p>
+
+        </div>
+        <div>
+          <div></div>
+        </div>
+        <link href="https://csdnimg.cn/release/phoenix/mdeditor/markdown_views-60ecaf1f42.css" rel="stylesheet">
+      </div>
+    </article>
+  </div>
+</body>
+
+</html>

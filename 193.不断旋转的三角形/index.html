@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>不断旋转的三角形</title>
+  <style>
+    .rotate-triangle {
+      margin-left: 50px;
+      width: 0;
+      height: 0;
+      border-bottom: 50px solid transparent;
+      border-top: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-left: 50px solid pink;
+      animation: litokele 2s infinite linear;
+      transform-origin: 20% 50%;
+    }
+
+    @-webkit-keyframes litokele {
+      from {
+        transform: rotate(0);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes litokele {
+      from {
+        transform: rotate(0);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="rotate-triangle">
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <section class="ouvJEz">
+      <h1 class="_1RuRku">Websocket和Socket.io的区别及应用</h1>
+      <div class="rEsl9f">
+        <div class="_2mYfmT"><a class="_1OhGeD" href="/u/020b396f86e2" target="_blank" rel="noopener noreferrer"><img class="_13D2Eh" src="https://upload.jianshu.io/users/upload_avatars/5097943/6e1aa8e4-323b-4c2b-8044-c9d8adf6ea66.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp" alt=""></a>
+          <div style="margin-left: 8px;">
+            <div class="_3U4Smb"><span class="FxYr8x"><a class="_1OhGeD" href="/u/020b396f86e2" target="_blank" rel="noopener noreferrer">vinterx</a></span><button data-locale="zh-CN" type="button" class="_3kba3h _1OyPqC _3Mi9q9 _34692-"><span>关注</span></button></div>
+            <div class="s-dsoj"><time datetime="2019-05-11T18:12:10.000Z">2019.05.12 02:12:10</time><span>字数 1,017</span><span>阅读 12,530</span></div>
+          </div>
+        </div>
+      </div>
+      <article class="_2rhmJa">
+        <h2>一、Websocket</h2>
+        <p>Websocket是HTML5新增的一种全双工通信协议，客户端和服务端基于TCP握手连接成功后，两者之间就可以建立持久性的连接，实现双向数据传输。<br>
+          <strong>传统HTTP和Websocket的异同</strong><br>
+          <strong>不同点</strong></p>
+        <ol>
+          <li>HTTP是单向数据流，客户端向服务端发送请求，服务端响应并返回数据；Websocket连接后可以实现客户端和服务端双向数据传递。</li>
+          <li>由于是新的协议，HTTP的url使用"http//"或"https//"开头；Websocket的url使用"ws//"开头。</li>
+        </ol>
+        <p><strong>相同点</strong></p>
+        <ol>
+          <li>都需要建立TCP连接</li>
+          <li>都是属于七层协议中的应用层协议</li>
+        </ol>
+        <p>传统通过HTTP请求模拟双向数据传递的方式是http+Polling(轮询)和http+Long Polling(长轮询)。轮询(Polling)就是客户端定时发送get请求向服务端请求数据，这种方式能满足一定的需求，但是存在一些问题，如果服务端没有新数据，但是客户端get请求到的数据都是旧数据，这样不仅浪费了带宽资源，而且占用CPU内存。</p>
+        <p>LongPolling(长轮询)就是在Polling上的一些改进，即如果服务端没有新数据返回给客户端，服务端会把当前的这个get请求保持住(hold)，当有新数据时则返回新数据，如果超过一定时间服务端仍没有新数据，则服务端返回超时请求，客户端接收到超时请求，然后在发送get请求，一直循环执行。虽然一定程度解决了带宽资源和CPU内存浪费情况，但是当服务端数据更新很快，这和轮询（Polling）没有本质上的区别，而且http数据包的头部数据量往往很大（通常有400多个字节），但是真正被服务器需要的数据却很少（有时只有10个字节左右），这样的数据包在网络上周期性的传输，难免对网络带宽是一种浪费。在高并发的情况下，这对服务器是一个很大的挑战。综合上面轮询的种种问题，Websocket终于华丽的登上了舞台。<br>
+          Websocket，这里简单说明一下的使用方式。</p>
+        <div class="_2Uzcx_"><button class="VJbwyy" type="button" aria-label="复制代码"><i aria-label="icon: copy" class="anticon anticon-copy"><svg viewBox="64 64 896 896" focusable="false" class="" data-icon="copy" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                <path d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"></path>
+              </svg></i></button>
+          <pre class="line-numbers  language-jsx"><code class="  language-jsx"><span class="token keyword">const</span> ws <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebSocket</span><span class="token punctuation">(</span><span class="token string">"ws//:xxx.xx"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>protocol<span class="token punctuation">]</span><span class="token punctuation">)</span>
+      
+      ws<span class="token punctuation">.</span><span class="token function-variable function">onopen</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          ws<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'hello'</span><span class="token punctuation">)</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'send'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      
+      ws<span class="token punctuation">.</span><span class="token function-variable function">onmessage</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">ev</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>ev<span class="token punctuation">.</span>data<span class="token punctuation">)</span>
+          ws<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      
+      ws<span class="token punctuation">.</span><span class="token function-variable function">onclose</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">ev</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      
+      ws<span class="token punctuation">.</span><span class="token function-variable function">onerror</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">ev</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        </div>
+        <p>Websocket实例化后，前端可以使用以上介绍的方法进行对应的操作，这些方法使用比较简单，这里就不多介绍，由于想完全搭建一个Websocket服务端比较麻烦，又耗费时间，接下来主要讲解实际应用中与Websocket相关的库。</p>
+        <h2>二、Socket.io</h2>
+        <p>实际应用中，如果需要Websocke进行双向数据通信，<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fsocketio%2Fsocket.io" target="_blank" rel="nofollow">Socket.io</a>是一个非常好的选择。其实github上面也有通过JS封装好的Websocket库，<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fwebsockets%2Fws" target="_blank" rel="nofollow">ws</a>可用于client和基于node搭建的服务端使用，但是用起来相对繁琐，star相对Socket.io较少，所以不推荐使用。</p>
+        <p>Socket.io不是Websocket，它只是将Websocket和轮询 （Polling）机制以及其它的实时通信方式封装成了通用的接口，并且在服务端实现了这些实时机制的相应代码。也就是说，Websocket仅仅是 Socket.io实现实时通信的一个子集。因此Websocket客户端连接不上Socket.io服务端，当然Socket.io客户端也连接不上Websocket服务端。</p>
+        <h2>三、简单聊天实例</h2>
+        <p>servce.js(服务端)</p>
+        <div class="_2Uzcx_"><button class="VJbwyy" type="button" aria-label="复制代码"><i aria-label="icon: copy" class="anticon anticon-copy"><svg viewBox="64 64 896 896" focusable="false" class="" data-icon="copy" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                <path d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"></path>
+              </svg></i></button>
+          <pre class="line-numbers  language-tsx"><code class="  language-tsx"><span class="token string">'use strict'</span>
+      
+      <span class="token keyword">let</span> express <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span>
+      <span class="token keyword">let</span> path <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span>
+      <span class="token keyword">let</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token keyword">let</span> server <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'http'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span>app<span class="token punctuation">)</span>
+      <span class="token keyword">let</span> io <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'socket.io'</span><span class="token punctuation">)</span><span class="token punctuation">(</span>server<span class="token punctuation">)</span>
+      
+      app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendFile</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'index.html'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      
+      io<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'connection'</span><span class="token punctuation">,</span> <span class="token parameter">client</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>client<span class="token punctuation">.</span>id<span class="token punctuation">,</span> <span class="token string">'======================='</span><span class="token punctuation">)</span>
+          client<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'channel'</span><span class="token punctuation">,</span> <span class="token parameter">data</span> <span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+              <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+              io<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'broadcast'</span><span class="token punctuation">,</span> data<span class="token punctuation">)</span>
+              <span class="token comment">// client.emit('channel', data)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          client<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'disconnect'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span><span class="token punctuation">{</span>
+              <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      
+      server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The service listening on 3000 port"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        </div>
+        <p>index.html(客户端)</p>
+        <div class="_2Uzcx_"><button class="VJbwyy" type="button" aria-label="复制代码"><i aria-label="icon: copy" class="anticon anticon-copy"><svg viewBox="64 64 896 896" focusable="false" class="" data-icon="copy" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                <path d="M832 64H296c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h496v688c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V96c0-17.7-14.3-32-32-32zM704 192H192c-17.7 0-32 14.3-32 32v530.7c0 8.5 3.4 16.6 9.4 22.6l173.3 173.3c2.2 2.2 4.7 4 7.4 5.5v1.9h4.2c3.5 1.3 7.2 2 11 2H704c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zM350 856.2L263.9 770H350v86.2zM664 888H414V746c0-22.1-17.9-40-40-40H232V264h432v624z"></path>
+              </svg></i></button>
+          <pre class="line-numbers  language-xml"><code class="  language-xml"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>app<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>https://cdn.bootcss.com/socket.io/2.2.0/socket.io.slim.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btn<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>send<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>content-wrap<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span>
+              window.onload = () =&gt; {
+                  let inputValue = null
+      
+                  let socket = io('http://localhost:3000')
+                  socket.on('broadcast', data =&gt;{
+                      let content = document.createElement('p')
+                      content.innerHTML = data
+                      document.querySelector('#content-wrap').appendChild(content)
+                  })
+                  
+                  let inputChangeHandle = (ev) =&gt; {
+                      inputValue = ev.target.value
+                  }
+                  let inputDom = document.querySelector("#input")
+                  inputDom.addEventListener('input', inputChangeHandle, false)
+      
+                  let sendHandle = () =&gt; {                
+                      socket.emit('channel', inputValue)
+                  }
+                  let btnDom = document.querySelector("#btn")
+                  btnDom.addEventListener('click', sendHandle, false)
+                  
+      
+                  window.onunload = () =&gt; {
+                      btnDom.removeEventListener('click', sendHandle, false)
+                      inputDom.removeEventListener('input', inputChangeHandle, false)
+                  }
+              }
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+      
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+      <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        </div>
+        <p>新开几个客户端页面，其中一个页面输入value，其他几个页面马上收到value消息，简单的聊天页面就完成了，其中，客户端index.html页面不用服务端返回，自己随便创建个index.html是一样的。</p>
+      </article>
+      <div></div>
+      <div class="_1kCBjS">
+        <div class="_18vaTa">
+          <div class="_3BUZPB">
+            <div class="_2Bo4Th" role="button" tabindex="-1" aria-label="给文章点赞"><i aria-label="ic-like" class="anticon"><svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" class="">
+                  <use xlink:href="#ic-like"></use>
+                </svg></i></div><span class="_1LOh_5" role="button" tabindex="-1" aria-label="查看点赞列表">0人点赞<i aria-label="icon: right" class="anticon anticon-right"><svg viewBox="64 64 896 896" focusable="false" class="" data-icon="right" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                  <path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 0 0 302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 0 0 0-50.4z"></path>
+                </svg></i></span>
+          </div>
+          <div class="_3BUZPB">
+            <div class="_2Bo4Th" role="button" tabindex="-1"><i aria-label="ic-dislike" class="anticon"><svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" class="">
+                  <use xlink:href="#ic-dislike"></use>
+                </svg></i></div>
+          </div>
+        </div>
+        <div class="_18vaTa"><a class="_3BUZPB _1x1ok9 _1OhGeD" href="/nb/34756895" target="_blank" rel="noopener noreferrer"><i aria-label="ic-notebook" class="anticon"><svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" class="">
+                <use xlink:href="#ic-notebook"></use>
+              </svg></i><span>JS</span></a>
+          <div class="_3BUZPB ant-dropdown-trigger">
+            <div class="_2Bo4Th"><i aria-label="ic-others" class="anticon"><svg width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false" class="">
+                  <use xlink:href="#ic-others"></use>
+                </svg></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="_19DgIp" style="margin-top:24px;margin-bottom:24px"></div>
+      <div class="_13lIbp">
+        <div class="_191KSt">"小礼物走一走，来简书关注我"</div><button type="button" class="_1OyPqC _3Mi9q9 _2WY0RL _1YbC5u"><span>赞赏支持</span></button><span class="_3zdmIj">还没有人赞赏，支持一下</span>
+      </div>
+      <div class="d0hShY"><a class="_1OhGeD" href="/u/020b396f86e2" target="_blank" rel="noopener noreferrer"><img class="_27NmgV" src="https://upload.jianshu.io/users/upload_avatars/5097943/6e1aa8e4-323b-4c2b-8044-c9d8adf6ea66.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/100/h/100/format/webp" alt="  "></a>
+        <div class="Uz-vZq">
+          <div class="Cqpr1X"><a class="HC3FFO _1OhGeD" href="/u/020b396f86e2" title="vinterx" target="_blank" rel="noopener noreferrer">vinterx</a><span class="_2WEj6j" title="The harder you work, the luckier you are!">The harder you work, the luckier you are!</span></div>
+          <div class="lJvI3S"><span>总资产2 (约0.28元)</span><span>共写了3.5W字</span><span>获得21个赞</span><span>共9个粉丝</span></div>
+        </div><button data-locale="zh-CN" type="button" class="_1OyPqC _3Mi9q9"><span>关注</span></button>
+      </div>
+    </section>
+  </div>
+  <script>
+
+  </script>
+</body>
+
+</html>

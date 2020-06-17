@@ -48,4 +48,3 @@ function handler(tree, res, set) {
 }
 let res = search(requireTree)
 console.log(res)
-debugger;
