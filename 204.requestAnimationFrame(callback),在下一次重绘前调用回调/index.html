@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>requestAnimationFrame</title>
+  <style>
+    #app {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      animation: an 1s forwards;
+    }
+
+    @keyframes an {
+      from {}
+
+      to {
+        transform: translate(100px, 0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"></div>
+  <button onclick="handleClick()">切换颜色</button>
+  <script>
+    function handleClick() {
+      let app = document.getElementById('app')
+      app.style.backgroundColor = `black`
+      app.style.display = `none`
+    }
+
+    function step() {
+      console.log('我即将重绘')
+      if (Math.random() > 0.5) {
+        window.requestAnimationFrame(step)
+      }
+    }
+
+    window.requestAnimationFrame(step)
+  </script>
+</body>
+
+</html>

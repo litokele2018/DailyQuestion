@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>location.hash + iframe跨域</title>
+</head>
+
+<body>
+  <iframe id="iframe" src="./b.html"></iframe>
+  <script>
+    /* a 与 c 同域 */
+    var iframe = document.getElementById('iframe');
+
+    // 向b.html传hash值
+    setTimeout(function() {
+      iframe.src = iframe.src + '#user=admin';
+    }, 1000);
+
+    function callback(res) {
+      console.log(res)
+    }
+  </script>
+</body>
+
+</html>

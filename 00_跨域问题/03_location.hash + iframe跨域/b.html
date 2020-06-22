@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>location.hash + iframe跨域</title>
+</head>
+
+<body>
+  <iframe id="iframe" src="./c.html"></iframe>
+  <script>
+    /* 通过location的hash变化获取数据值 */
+    var iframe = document.getElementById('iframe');
+
+    // 监听a.html传来的hash值，再传给c.html
+    window.onhashchange = function() {
+      iframe.src = iframe.src + location.hash;
+    };
+  </script>
+</body>
+
+</html>
