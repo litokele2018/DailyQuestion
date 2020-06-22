@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    ul,
+    li {
+      list-style: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <handler v-for="(item, index) in list" :key="index" :data="item"></handler>
+    </ul>
+  </div>
+
+  <template id="temp">
+    <li>
+      <button @click="handlerClick">{{fold ? '+' : '-'}}</button>
+      <span>{{data.name}}</span>
+      <ul v-if="!fold && data.children && data.children.length > 0">
+        <handler v-for="(item, index) in data.children" :key="index" :data="item"></handler>
+      </ul>
+    </li>
+  </template>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const handler = Vue.component('handler', {
+      template: '#temp',
+      props: ['data'],
+      data() {
+        return {
+          fold: true,
+        }
+      },
+      methods: {
+        handlerClick() {
+          this.fold = !this.fold
+        }
+      }
+    })
+
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          list: [
+          {
+            name: '全部',
+            children: [
+            {
+              name: '一级标题1',
+              children: [
+              {
+                name: '二级标题1',
+                children: [
+                {
+                  name: '三级标题1'
+                },
+                {
+                  name: '三级标题2'
+                }]
+              }]
+            },
+            {
+              name: '一级标题2'
+            },
+            {
+              name: '一级标题3'
+            }]
+          }]
+        }
+      },
+      components: {
+        handler
+      }
+    })
+  </script>
+</body>
+
+</html>
