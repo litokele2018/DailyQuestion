@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>父子组件通信</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2>{{name}}</h2>
+    <mytest :age="age" :message="message" :name="name"></mytest>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      components: {
+        'mytest': {
+          template: `<div>这是个h1标题{{age}}</div>`,
+          props: ['age'],
+          // 可以关闭自动挂载到组件根元素上的没有在props声明的属性
+          inheritAttrs: false,
+          created: function() {
+            console.log(this.$attrs) //注意这里
+          }
+        }
+      },
+      data() {
+        return {
+          name: 'litokele',
+          age: 18,
+          message: 'hello_world'
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>
