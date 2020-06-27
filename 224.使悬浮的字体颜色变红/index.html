@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>224.使悬浮的字体颜色变红</title>
+  <style>
+    span:hover {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrapper">
+    224.使悬浮的字体颜色变红224.使悬浮的字体颜色变红224.使悬浮的字体颜色变红224.使悬浮的字体颜色变红
+    224.使悬浮的字体颜色变红224.使悬浮的字体颜色变红224.使悬浮的字体颜色变红
+    224.使悬浮的字体颜色变红224.使悬浮的字体颜色变红224.使悬浮的字体颜色变红
+    224.使悬浮的字体颜色变红224.使悬浮的字体颜色变红224.使悬浮的字体颜色变红
+    224.使悬浮的字体颜色变红
+    224.使悬浮的字体颜色变红
+    224.使悬浮的字体颜色变红
+    224.使悬浮的字体颜色变红224.使悬浮的字体颜色变红
+  </div>
+  <script>
+    let wr = document.getElementById('wrapper')
+    wr.innerHTML = wr.textContent.split('').map(item => `<span>${item}</span>`).join('')
+  </script>
+</body>
+
+</html>

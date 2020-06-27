@@ -1,16 +1,17 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>高亮关键词显示输入搜索</title>
   <style>
-    my-component{
+    my-font {
       color: rgb(0, 136, 255);
     }
   </style>
 </head>
+
 <body>
   <div>
     <input type="text" id="inp">
@@ -27,13 +28,24 @@
       let reg = new RegExp(`\(${value}\)`)
       let res = data.reduce((acc, cur) => {
         if (reg.test(cur)) {
-          const inputValue = RegExp.$1
-          cur = cur.replace(inputValue, '<my-component>$&</my-component>')
+          cur = cur.replace(reg, (match, p1) => {
+            return `<my-font>${p1}</my-font>`
+          })
           acc.push(`<li>${cur}</li>`)
         }
         return acc
       }, [])
       return res
+    }
+    // 防抖
+    function debounce(fn, duration) {
+      let timer = null
+      return function(...args) {
+        clearTimeout(timer)
+        timer = setTimeout(function() {
+          fn.call(this, ...args)
+        }, duration)
+      }
     }
 
     function handleInput(e) {
@@ -45,58 +57,10 @@
       container.innerHTML = res.join('')
     }
 
-    inp.addEventListener('input', handleInput)
+    let fn = debounce(handleInput, 200)
+
+    inp.addEventListener('input', fn)
   </script>
 </body>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>高亮关键词显示输入搜索</title>
-  <style>
-    my-component{
-      color: rgb(0, 136, 255);
-    }
-  </style>
-</head>
-<body>
-  <div>
-    <input type="text" id="inp">
-    <section>
-      <ul id="container"></ul>
-    </section>
-  </div>
-  <script>
-    let data = ['宜宾五粮液', '宜宾叙州区', '湖北宜昌', '宜宾高客站', '宜宾西站']
-    let inp = document.getElementById('inp')
-    let container = document.getElementById('container')
 
-    function search(value) {
-      let reg = new RegExp(`\(${value}\)`)
-      let res = data.reduce((acc, cur) => {
-        if (reg.test(cur)) {
-          const inputValue = RegExp.$1
-          cur = cur.replace(inputValue, '<my-component>$&</my-component>')
-          acc.push(`<li>${cur}</li>`)
-        }
-        return acc
-      }, [])
-      return res
-    }
-
-    function handleInput(e) {
-      if (!e.target.value) {
-        container.innerHTML = ''
-        return
-      }
-      let res = search(e.target.value)
-      container.innerHTML = res.join('')
-    }
-
-    inp.addEventListener('input', handleInput)
-  </script>
-</body>
->>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
 </html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #container {
+      width: 500px;
+      height: 500px;
+      border: 1px solid black;
+    }
+
+    .p {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      border: 1px solid pink;
+      /* 相当于50px */
+      padding: 10%;
+    }
+
+    .a {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      border: 1px solid pink;
+      /* 相当于50px */
+      margin: 10%;
+    }
+
+    .tr {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      /* 相对于自身的 */
+      transform: translate(10%);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="p"></div>
+    <div class="a"></div>
+    <div class="tr"></div>
+  </div>
+</body>
+
+</html>

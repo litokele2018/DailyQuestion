@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>由于出现了换行符，才出现了间隙</title>
+  <style>
+    body {
+      display: table;
+      word-spacing: -1em;
+      border: 1px solid blue;
+    }
+
+    div {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      display: inline-block;
+      /* 解决垂直方向上的和父元素之间的间隙 */
+      vertical-align: middle;
+    }
+
+    /* 方案 */
+    /* 1.写成一行 */
+    /* 2.给父元素添加font-size：0 */
+    /* 3.给元素添加float：left */
+    /* 4.设置子元素的margin-left为负值 */
+    /* 5.设置父元素 display:table;word-spacing:-1em;目前这个方法可以完美解决，且兼容其他浏览器。 */
+  </style>
+</head>
+
+<body>
+  <div class="div1"></div>
+  <div class="div2"></div>
+  <div class="div3"></div>
+</body>
+
+</html>

@@ -10,7 +10,7 @@
 
     // 寄生
     function inheritPrototype(sub, sup) {
-      let prototype = Object(sup.prototype)
+      let prototype = Object.create(sup.prototype)
       prototype.constructor = sub
       sub.prototype = prototype
     }
