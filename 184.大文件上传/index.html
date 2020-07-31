@@ -64,7 +64,7 @@
         },
 
         createProgressHandler(item) {
-          return e => {
+          return (e) => {
             item.percentage = parseInt(String((e.loaded / e.total) * 100))
           }
         },

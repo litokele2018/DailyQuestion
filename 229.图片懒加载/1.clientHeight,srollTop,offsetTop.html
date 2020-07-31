@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    img {
+      position: absolute;
+      top: 1000px;
+    }
+  </style>
+</head>
+
+<body>
+  <img id="img" width="100px" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1596187824562&di=81d42191377628ab5f55afb1a968403d&imgtype=0&src=http%3A%2F%2Fdmimg.5054399.com%2Fallimg%2Fpkm%2Fpk%2F13.jpg" alt="">
+</body>
+<script>
+  let img = document.getElementById('img')
+
+  window.addEventListener('scroll', () => {
+    console.log(img.offsetTop)
+    console.log(document.documentElement.clientHeight)
+    console.log(document.documentElement.scrollTop)
+    if (img.offsetTop < document.documentElement.clientHeight + document.documentElement.scrollTop) {
+      // 出现在了页面中
+    }
+  })
+</script>
+
+</html>

@@ -69,7 +69,6 @@ server.on("request", async (req, res) => {
     await mergeFileChunk(filePath, filename, size)
     res.end(JSON.stringify({ code: 0, message: "file merge success" }))
   }
-
   const multiparty = new MultiParty.Form()
   // files 参数保存了 FormData 中文件，fields 参数保存了 FormData 中非文件的字段
   multiparty.parse(req, async (err, fields, files) => {

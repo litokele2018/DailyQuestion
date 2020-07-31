@@ -8,16 +8,19 @@
 </head>
 
 <body>
-  <div id="count"></div>
+  <button onclick="handler()">click</button>
   <script>
-    let cout = document.getElementById('count')
-    let count = 0
-    function loop() {
-      cout.innerText = Math.random() * 100
-      count++
-      if (count < 100) window.requestAnimationFrame(loop)
+    let xhr = new XMLHttpRequest()
+    xhr.open('GET', 'http://localhost:3000')
+    xhr.send()
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status == 200) {
+          console.log(xhr.responseText)
+        }
+      }
     }
-    loop()
   </script>
 </body>
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <img src="" alt="" id="img">
+  <input type="file" id="file">
+  <script>
+    // 使用Blob 
+    // 前端在没有上传服务器之前就可以利用 Blob文件对象生成url进行展示
+    document.getElementById('file').addEventListener('change', (e) => {
+      const file = e.target.files[0]
+      const URL = window.URL
+      const url = URL.createObjectURL(file)
+      const img = document.getElementById('img')
+      img.src = url
+
+      img.addEventListener('load', () => {
+        // 释放url
+        URL.revokeObjectURL(url)
+      })
+    })
+  </script>
+</body>
+
+</html>
