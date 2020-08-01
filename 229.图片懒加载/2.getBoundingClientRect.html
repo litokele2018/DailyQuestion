@@ -1,0 +1,28 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    img {
+      position: absolute;
+      top: 1000px;
+    }
+  </style>
+</head>
+
+<body>
+  <img id="img" width="100px" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1596187824562&di=81d42191377628ab5f55afb1a968403d&imgtype=0&src=http%3A%2F%2Fdmimg.5054399.com%2Fallimg%2Fpkm%2Fpk%2F13.jpg" alt="">
+  <script>
+    // 2. getBoundingClientRect
+    // getBoundingClientRect 
+    window.addEventListener('scroll', () => {
+      // 获取页面的视口高度
+      console.log(document.documentElement.clientHeight)
+      // 获取图片的视口高度
+      console.log(document.getElementById('img').getBoundingClientRect().top)
+      // 当图片的视口高度 小于 页面的视口高度时， 表示图片已经出现在视口中
+    })
+  </script>
+</body>
+
+</html>

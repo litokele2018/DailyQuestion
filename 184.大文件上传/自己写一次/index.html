@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大文件上传_litokele</title>
+  <style>
+    #container {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <input id="selectFile" type="file" @change="handlerFileChange">
+    <br>
+    <button @click="handleSubmit">Submit</button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#container',
+      data: {
+        container: {
+          file: '',
+          fileName: ''
+        },
+        size: 1024 * 1024 * 10,
+        chunksList: []
+      },
+      methods: {
+        handlerFileChange(e) {
+          this.container.file = e.target.files[0]
+          this.container.fileName = e.target.files[0].name
+        },
+        async handleSubmit() {
+          this.chunksList = this.createChunksList(this.container.file).map((item, index) => {
+            let formData = new FormData()
+            formData.append('chunks', item)
+            formData.append('fileName', this.container.fileName + index)
+            return { formData, index }
+          }).map(({ formData }, index) => {
+            return this.request('post', 'http://localhost:3000', formData)
+          })
+          await Promise.all(this.chunksList)
+        },
+        createChunksList(file, size = this.size) {
+          let res = []
+          let fileSize = file.size
+          let pre = 0
+          while (pre < fileSize) {
+            res.push(file.slice(pre, pre + size))
+            pre += size
+          }
+          return res
+        },
+        // 封装ajax
+        request(
+          method,
+          url,
+          data = {},
+          headers = {},
+          onprogress = () => {},
+        ) {
+          return new Promise(resolve => {
+            let xml = new XMLHttpRequest()
+            xml.open(method, url)
+            Object.keys(headers).forEach(key => {
+              xml.setRequestHeader(key, headers[key])
+            })
+            xml.send(data)
+            xml.onload = (e) => {
+              let res = e.target.response
+              console.log(res)
+              resolve(res)
+            }
+          })
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
