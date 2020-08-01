@@ -1,0 +1,19 @@
+# OPPO 一面 30 分钟  没戏 太菜
+1. add 函数    add() // 1 add() // 2
+  写了半天
+let add = (function foo() {
+  let v = 1
+  return () => {
+    console.log(v++)
+  }
+})()
+
+2. xss, csrf
+3. 自我介绍
+4. 项目
+5. cookie， session， token
+6. 事件循环
+7. 基本数据类型
+8. 箭头函数
+9. 作用域链， 原型链
+10. 有什么问题
