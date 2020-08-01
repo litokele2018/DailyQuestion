@@ -7,7 +7,7 @@ var EventCenter = (function() {
   function on(event, handler) {
     events[event] = events[event] || [];
     events[event].push({
-      handler: handler
+      handler
     });
   }
 

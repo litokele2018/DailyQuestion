@@ -24,8 +24,9 @@ function changeToNum(s) {
 
 function handler(s, map) {
   if (!s.length) return 0
-  let index1 = s.indexOf('万')
   let res = 0
+
+  let index1 = s.indexOf('万')
   if (index1 !== -1) {
     res += 10000 * handler(s.substring(0, index1), map)
     index1++
@@ -53,6 +54,7 @@ function handler(s, map) {
   if (index4 !== -1) {
     res += 10 * handler(s.substring(index3, index4), map)
   }
+
   map[s[s.length - 1]] && (res += map[s[s.length - 1]])
   return res
 }

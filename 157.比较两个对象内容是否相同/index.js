@@ -9,5 +9,5 @@ let obj2 = {
   gender: '男'
 }
 
-// obj1 和 obj2 的内容是相同的
+// obj1 和 obj2 的内容是相同的 后面可以传函数
 console.log(JSON.stringify(obj1) === JSON.stringify(obj2)) // true

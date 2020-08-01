@@ -1,88 +1,46 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
   <script>
     new Promise((resolve, reject) => {
       resolve(11)
     }).then(res => {
-      console.log('1', res)  // 11
+      console.log('1', res) // 11
       return res
     }).then(res => {
-      console.log('2', res)  // 11
+      console.log('2', res) // 11
     }).then(res => {
       console.log('3', res) // undefined 由于前一个没有return
-    }) 
+    })
 
-    
+
     // 注意，调用resolve或reject并不会终结 Promise 的参数函数的执行。
 
-new Promise((resolve, reject) => {
-  resolve(1);
-  console.log(2); // 2
-}).then(r => {
-  console.log(r); // 1
-});
-
-// 上面代码中，调用resolve(1)以后，后面的console.log(2)还是会执行，并且会首先打印出来。
-// 这是因为立即 resolved 的 Promise 是在本轮事件循环的末尾执行，总是晚于本轮循环的同步任务。
-// 一般来说，调用resolve或reject以后，Promise 的使命就完成了，后继操作应该放到then方法里面，而不应该直接写在resolve或reject的后面。
-// 所以，最好在它们前面加上return语句，这样就不会有意外。
-
-new Promise((resolve, reject) => {
-  return resolve(1);
-  // 后面的语句不会执行
-  console.log(2);
-})
-  </script>
-</body>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <script>
     new Promise((resolve, reject) => {
-      resolve(11)
-    }).then(res => {
-      console.log('1', res)  // 11
-      return res
-    }).then(res => {
-      console.log('2', res)  // 11
-    }).then(res => {
-      console.log('3', res) // undefined 由于前一个没有return
-    }) 
+      resolve(1);
+      console.log(2); // 2
+    }).then(r => {
+      console.log(r); // 1
+    });
 
-    
-    // 注意，调用resolve或reject并不会终结 Promise 的参数函数的执行。
+    // 上面代码中，调用resolve(1)以后，后面的console.log(2)还是会执行，并且会首先打印出来。
+    // 这是因为立即 resolved 的 Promise 是在本轮事件循环的末尾执行，总是晚于本轮循环的同步任务。
+    // 一般来说，调用resolve或reject以后，Promise 的使命就完成了，后继操作应该放到then方法里面，而不应该直接写在resolve或reject的后面。
+    // 所以，最好在它们前面加上return语句，这样就不会有意外。
 
-new Promise((resolve, reject) => {
-  resolve(1);
-  console.log(2); // 2
-}).then(r => {
-  console.log(r); // 1
-});
-
-// 上面代码中，调用resolve(1)以后，后面的console.log(2)还是会执行，并且会首先打印出来。
-// 这是因为立即 resolved 的 Promise 是在本轮事件循环的末尾执行，总是晚于本轮循环的同步任务。
-// 一般来说，调用resolve或reject以后，Promise 的使命就完成了，后继操作应该放到then方法里面，而不应该直接写在resolve或reject的后面。
-// 所以，最好在它们前面加上return语句，这样就不会有意外。
-
-new Promise((resolve, reject) => {
-  return resolve(1);
-  // 后面的语句不会执行
-  console.log(2);
-})
+    new Promise((resolve, reject) => {
+      return resolve(1);
+      // 后面的语句不会执行
+      console.log(2);
+    })
   </script>
 </body>
->>>>>>> a348e00a339fc4441684e34028cd39c7cf1d6d28
+
 </html>

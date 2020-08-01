@@ -20,7 +20,9 @@ function template(string) {
 //做个测试
 var me = "hezebing";
 var lover = "wangyanyan";
-let res = template("我叫${ me }，爱人是${ lover }"); //"我叫hezebing，爱人是wangyanyan"
+let area = 'beijing'
+let res = template("我叫${ me } ${ area }，爱人是${ lover }"); //"我叫hezebing，爱人是wangyanyan"
 //测试异常
+console.log(res)
 // template("我叫${ _me }，爱人是${ lover }"); //_me is not defined
 // template("我叫${ +me }，爱人是${ lover }"); //Unexpected token +me

@@ -1,0 +1,52 @@
+2020.07.01
+1.项目之外的难点 文件上传，断点续传
+  文件的content-type：multipart/form-data; boundary
+  其他的呢： 
+    application/json, 
+    application/x-www-urlencoded,
+    text/plain, 
+    text/javascript
+  怎么将用户上传的文件，让前端用户预览
+    我说的URl.createObjectURL(), 这个在node中没有，只用用户自己本地上的地址
+2.post请求过程， 第一次options 第二次发送数据 
+  第一次options的意义（如 2g大的文件， 如果不提前询问的话， 
+  如果服务器并不接受， 你还是发送出去，会造成网络资源的消耗）
+3.sum(2, 3), sum(2)(3) 
+  这里卡了半天， 直接在返回函数上面添加方法就好了
+  toString 或 valueOf
+  （估计挂在这了）
+4.跨域 JSONP，CORS 
+  JSONP的原理 
+  CORS怎么实现
+  返回的 js 文件什么样子（callback({data})）
+5.leetcode 1 两数之和
+  没用最优解，感觉很尴尬
+6.状态码 200， 204， 301， 302， 304， 401， 403， 405
+  301 资源永久移动，302 Found 资源临时移动 （两者区别）
+  401 要求验证用户身份， 403 请求拒绝 （两者区别）
+  405 请求方法被禁止
+7.几种继承方式，最常用的，ES6中的
+  1.原型链
+  2.利用构造函数
+  3.组合
+  4.寄生
+  5.组合寄生
+  6.原型式
+8.缓存机制, 如何使用， 头部
+  Etag 是怎么比较的
+  Etag 怎么生成的 
+    响应头的 Last-Modified 与 Content-Length 表示为十六进制组合而成
+9.function foo(a, b, c) {}, foo.length 什么意思
+  参数个数
+10.安全相关， XSS， CSRF
+  怎么预防
+  XSS 输入输出转义，纯前端渲染
+  CSRF token，cookie 的 httpOnly， 验证码， referer
+11.webgl 没用过
+12.有什么要问的吗
+
+总结： 面试官说框架学一种就够了， 因为框架本身就在变化， 还是加强代码能力最好
+
+二面 结束 第二天早上收到感谢信（成都字节 结束）
+
+第三天收到北京字节的面试邀请
