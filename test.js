@@ -1,8 +1,5 @@
-let add = (function foo() {
-  let v = 1
-  return () => {
-    console.log(v++)
-  }
-})()
-add() // 1
-add() // 2
+let url = 'https://www.baidu.com'
+let u = new URL(url)
+console.log(u)
+u.protocol // https:
+u.host // www.baidu.com
