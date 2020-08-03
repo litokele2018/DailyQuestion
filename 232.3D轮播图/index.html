@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #container {
+      display: flex;
+      background-color: black;
+      align-items: center;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .imgs {
+      width: 100px;
+    }
+
+    .imgs>img {
+      width: 100%;
+    }
+
+    .cur {
+      position: relative;
+      width: 200px;
+      z-index: 3;
+    }
+
+    .sec {
+      position: relative;
+      width: 150px;
+      z-index: 2;
+    }
+
+    .third {
+      position: relative;
+      z-index: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+  </div>
+  <script>
+    const imgs = [
+      './imgs/1.jpg.360X540.jpg',
+      './imgs/2.jpg.360X540.jpg',
+      './imgs/3.jpg.360X540.jpg',
+      './imgs/4.jpg.360X540.jpg',
+      './imgs/5.jpg.360X540.jpg',
+    ]
+    let curIndex = 3
+    let frag = document.createDocumentFragment()
+    let len = imgs.length
+    for (let i = 0; i < len; i++) {
+      let div = document.createElement('div')
+      div.className = 'imgs'
+      let img = document.createElement('img')
+      img.src = imgs[i]
+      div.appendChild(img)
+      frag.appendChild(div)
+    }
+    document.getElementById('container').appendChild(frag)
+
+    function changeIndex(index) {
+      let imgs = document.getElementsByClassName('imgs')
+      let arr = Array.from(imgs)
+      let cur = arr[curIndex]
+      arr.forEach((item, index) => {
+        let v = Math.abs(index - curIndex)
+        let flag = index - curIndex > 0 ? true : false
+        item.style.transition = 'width 1s'
+        if (v == 1) {
+          item.className = 'imgs sec'
+          item.style.zIndex = 2
+          if (flag) {
+            // 在右边
+            item.style.transform = 'translate(-20px, 0)'
+          } else {
+            item.style.transform = 'translate(20px, 0)'
+          }
+        } else if (v == 2) {
+          item.className = 'imgs third'
+          item.style.zIndex = 0
+          if (flag) {
+            // 在右边
+            item.style.transform = 'translate(-80px, 0)'
+          } else {
+            item.style.transform = 'translate(80px, 0)'
+          }
+        } else {
+          item.className = 'imgs cur'
+          item.style.zIndex = 3
+          item.style.transform = 'translate(0, 0)'
+        }
+      })
+      document.getElementById('container').removeChild(arr[0])
+      arr[0].className = 'imgs third'
+      arr[0].style.transform = 'translate(-80px, 0)'
+      arr[0].style.zIndex = 0
+      document.getElementById('container').appendChild(arr[0])
+    }
+    changeIndex(curIndex)
+    setInterval(changeIndex, 2000, curIndex)
+  </script>
+</body>
+
+</html>
