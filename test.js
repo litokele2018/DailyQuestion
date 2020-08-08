@@ -1,22 +1,16 @@
-// 千分位 1231239812492103.123124
-function splitThousand(num) {
-  let de = '',
-    first = '',
-    end = ''
-  if (num.includes('.')) {
-    de = '.' + num.split('.')[1]
-    num = num.split('.')[0]
-  }
-  if (num.length <= 3) return num + de
-  let n = num.length % 3
-  if (n !== 0) {
-    first = num.substr(0, n) + ','
-  }
-  end = num.substr(n)
-  end = end.match(/\d{3}/g).join(',')
-  return first + end + de
+// es5模拟模板字符串
+
+let name = 'litokele'
+let age = 18
+let str = 'hello ${name} ${age}'
+
+function model(str) {
+  let reg = /\$\{([^{}]+)\}/g
+  let match = str.replace(reg, (match, $1) => {
+    return eval($1)
+  })
+  console.log(match)
 }
 
-let num = '31232.123124'
-let res = splitThousand(num)
-console.log(res)
+
+model(str)
