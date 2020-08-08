@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 400px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      background-color: black;
+    }
+
+    .container>div {
+      transition: width 1s;
+    }
+
+    .container>div:nth-child(3) {
+      width: 200px;
+      transform: translate(0, 0);
+      z-index: 3;
+    }
+
+    .container>div:nth-child(2) {
+      transform: translate(40px, 0);
+      width: 150px;
+      z-index: 2;
+    }
+
+    .container>div:nth-child(4) {
+      transform: translate(-40px, 0);
+      z-index: 2;
+      width: 150px;
+    }
+
+    .container>div:nth-child(1) {
+      transform: translate(80px, 0);
+      width: 100px;
+    }
+
+    .container>div:nth-child(5) {
+      transform: translate(-80px, 0);
+      width: 100px;
+    }
+
+    img {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <header>{{title}}</header>
+    <div class="container">
+      <div v-for="(item, index) in imgs" :key="index" @click="handlerClick">
+        <img :src="item" :alt="item">
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: "#app",
+      data() {
+        return {
+          title: "3d轮播图",
+          imgs: [
+            './imgs/1.jpg.360X540.jpg',
+            './imgs/2.jpg.360X540.jpg',
+            './imgs/3.jpg.360X540.jpg',
+            './imgs/4.jpg.360X540.jpg',
+            './imgs/5.jpg.360X540.jpg',
+          ],
+        }
+      },
+      mounted() {
+        setInterval(this.handlerClick, 2000)
+      },
+      methods: {
+        handlerClick() {
+          let container = document.querySelector('.container')
+          let firstChild = document.querySelector('.container div:first-child')
+          container.removeChild(firstChild)
+          container.appendChild(firstChild)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
