@@ -6,64 +6,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title></title>
   <style>
-    .a {
-      width: 100px;
-      height: 100px;
-      float: left;
-      margin-left: -100%;
-      background-color: red;
-    }
-
-    .b {
-      float: left;
-      width: 100%;
-      height: 100px;
-      background-color: green;
-    }
-
-    .c {
-      float: left;
-      width: 100px;
-      height: 100px;
-      margin-left: -100px;
-      background-color: pink;
+    my-test {
+      color: red;
     }
   </style>
 </head>
 
 <body>
-<<<<<<< HEAD
-  <div id="wrapper">
-    <div class="b"></div>
-    <div class="a"></div>
-    <div class="c"></div>
-  </div>
+  <input type="text" id="inp">
+  <ul>
+
+  </ul>
   <script>
-    function demo() {
-      const now = Date.now();
-      document.body.style.backgroundColor = 'red';
-      while (Date.now() - now <= 20000) {
-        continue;
+    // 百度类似的随输随搜索框
+    let inp = document.getElementById('inp')
+    let data = [
+      '字节跳动抖音',
+      '字节跳动头条',
+      '字节跳动Data',
+      '字节跳动PEOPLE'
+    ]
+    inp.addEventListener('input', handleInput)
+
+    function handleInput() {
+      let v = inp.value
+      console.log(v)
+      let res = search(v)
+      let ul = document.getElementsByTagName('ul')[0]
+      if (v === '') {
+        ul.innerHTML = ''
+      } else {
+        ul.innerHTML = res
       }
-      document.body.style.backgroundColor = 'blue';
     }
 
-    demo()
-=======
-  <button onclick="handler()">click</button>
-  <script>
-    let xhr = new XMLHttpRequest()
-    xhr.open('GET', 'http://localhost:3000')
-    xhr.send()
-
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4) {
-        if (xhr.status == 200) {
-          console.log(xhr.responseText)
+    function search(v) {
+      let temp = data.map(item => {
+        let res = item.match(v)
+        if (res) {
+          item = item.replace(v, `<my-test>${v}</my-test>`)
+          return `<li>${item}</li>`
+        } else {
+          return ''
         }
-      }
+      })
+      console.log(temp)
+      return temp.join('')
     }
->>>>>>> 9569d85c61fe53af968d715b3c2c14906a63cfaf
   </script>
 </body>
 
