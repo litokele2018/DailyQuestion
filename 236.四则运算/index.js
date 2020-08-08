@@ -6,8 +6,9 @@
 // 反之，从数字栈中弹出两个数，从运算符栈中弹出栈顶运算符，进行运算，数字栈压入运算结果，符号栈压入当前运算符。重复该操作直到不满足条件。
 // 3. 出现左括号，则直接压入；出现右括号，则从数字栈中弹出两个数，从运算符栈中弹出栈顶运算符，
 // 进行运算，数字栈压入运算结果，重复该操作直到栈顶弹出右括号位置。
- 
+
 let str = '(4+(1+3-4))+(6+8)'
+str = '{3+[10*(5/2-3)-6]}'
 
 function handler(s) {
   let stack = []
@@ -17,8 +18,7 @@ function handler(s) {
   s += ')'
   // 将大括号和中括号全部转化为小括号
   s = s.replace(/[\]\}]/g, ')')
-  s = s.replace(/[\[\}]/g, '(')
-
+  s = s.replace(/[\[\{]/g, '(')
   let len = s.length
 
   let nextIsOp = false
@@ -31,16 +31,22 @@ function handler(s) {
       while (stackChar[stackChar.length - 1] !== '(') {
         compute(stack, stackChar)
       }
+      // 如果是 ( 就弹出
       stackChar.pop()
     } else if (nextIsOp) {
+      // 如果下一位是操作符, 进行比较操作符优先级， 如果当初栈顶优先级高
+      // 先执行计算后再放入下一位
       while (compair(stackChar[stackChar.length - 1], s[i])) {
         compute(stack, stackChar)
       }
       stackChar.push(s[i])
       nextIsOp = false
     } else {
+      // 如果是数字
       let j = i
+      // 正数和负数 特殊情况
       if (s[j] == '-' || s[j] == '+') i++
+      // 如果s[i] 不是操作符就后移
       while (mp.indexOf(s[i]) === -1) {
         i++
       }
@@ -64,8 +70,8 @@ function compair(op1, op2) {
 
 function compute(stack, stackChar) {
   // 取出两个数, 先取出来的放后面
-  let b = +stack.pop()
-  let a = +stack.pop()
+  let b = parseFloat(stack.pop())
+  let a = parseFloat(stack.pop())
   // 取出操作符
   let op = stackChar.pop()
   if (op == '+') {
