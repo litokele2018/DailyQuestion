@@ -1,16 +1,34 @@
-// es5模拟模板字符串
+class LimitPromise {
+  constructor(limit) {
+    this.limit = limit
+    this.count = count
+    this.tasksQueue = []
+  }
 
-let name = 'litokele'
-let age = 18
-let str = 'hello ${name} ${age}'
+  call(caller, ...args) {
+    return new Promise((resolve, reject) => {
+      let task = this.taskCreator(caller, args, resolve, reject)
+      if (this.limit <= this.count) {
+        this.tasksQueue.push(task)
+      } else {
+        task()
+      }
+    })
+  }
 
-function model(str) {
-  let reg = /\$\{([^{}]+)\}/g
-  let match = str.replace(reg, (match, $1) => {
-    return eval($1)
-  })
-  console.log(match)
+  taskCreator(caller, args, resolve, reject) {
+    return () => {
+      caller(...args)
+        .then(resolve)
+        .catch(reject)
+        .finally(() => {
+          this.count--
+          if (this.tasksQueue.length) {
+            let task = this.tasksQueue.shift()
+            task()
+            this.count++
+          }
+        })
+    }
+  }
 }
-
-
-model(str)
