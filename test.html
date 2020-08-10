@@ -18,41 +18,14 @@
 
   </ul>
   <script>
-    // 百度类似的随输随搜索框
-    let inp = document.getElementById('inp')
-    let data = [
-      '字节跳动抖音',
-      '字节跳动头条',
-      '字节跳动Data',
-      '字节跳动PEOPLE'
-    ]
-    inp.addEventListener('input', handleInput)
+    class Sup {
 
-    function handleInput() {
-      let v = inp.value
-      console.log(v)
-      let res = search(v)
-      let ul = document.getElementsByTagName('ul')[0]
-      if (v === '') {
-        ul.innerHTML = ''
-      } else {
-        ul.innerHTML = res
-      }
     }
+    class Sub extends Sup {
 
-    function search(v) {
-      let temp = data.map(item => {
-        let res = item.match(v)
-        if (res) {
-          item = item.replace(v, `<my-test>${v}</my-test>`)
-          return `<li>${item}</li>`
-        } else {
-          return ''
-        }
-      })
-      console.log(temp)
-      return temp.join('')
     }
+    console.log(Sub.prototype.constructor === Sub)
+    console.log(Sub.prototype.__proto__ === Sup.prototype)
   </script>
 </body>
 

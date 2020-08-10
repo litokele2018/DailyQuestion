@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="test" style="width: 100px;height: 100px;background-color: red;">
+    点我
+  </div>
+  <script>
+    // fastclick实现原理，将原有的默认事件禁用，然后派遣新的click事件
+    let div = document.getElementById('test')
+    div.addEventListener('click', () => {
+      console.log('click')
+    })
+    let targetElm = null;
+    // 因为click事件是在touchend 以后才会执行
+    div.addEventListener('touchstart', () => {
+      console.log('touch start')
+    })
+    div.addEventListener('touchend', (e) => {
+      console.log('touch end')
+      // 禁用默认事件
+      e.preventDefault();
+      let touch = event.changedTouches[0]
+      targetElm = e.target
+      // 创建click事件
+      let clickEvent = document.createEvent('MouseEvent')
+      clickEvent.initMouseEvent('click', true, true, window, 1, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null)
+      clickEvent.forwardedTouchEvent = true
+      // 触发自定义事件
+      targetElement.dispatchEvent(clickEvent)
+    })
+  </script>
+</body>
+
+</html>
