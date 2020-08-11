@@ -4,7 +4,7 @@
  */
 var versions = ['1.5.1', '1.5', '6', '3.3.3.3.3.3']
 versions = ['1.2.3.410.5', '1.2.3.409.4.1.2.3.4']
-versions = ['1.45.0', '1.5']
+versions = ['1.45.0', '1.5', '1.45.1']
 // 要求从小到大排序 注意 1.45 比 1.5 大
 // 结果 var sorted = ['1.5', '1.45.0', '3.3.3.3.3.3', '6']
 versions.sort((a, b) => {
@@ -16,6 +16,7 @@ versions.sort((a, b) => {
   }
   if (i >= arrA.length) {
     // a 比较短 a - b 返回小于 0
+    // 包含相同的情况
     return -1
   } else if (i >= arrB.length) {
     return 1

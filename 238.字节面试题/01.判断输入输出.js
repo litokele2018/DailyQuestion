@@ -28,3 +28,14 @@ var z = function() {
 a = z()
 a.y(x, y)
 console.log(a.z(), a.x, x) // 3, 2, 1
+
+// 3
+var a = {
+  name: 'bytedance',
+  func: function() {
+    console.log(this.name);
+  }
+};
+
+var fun1 = a.func;
+fun1(); // undefined
